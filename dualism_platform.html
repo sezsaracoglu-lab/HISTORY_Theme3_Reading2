@@ -1,0 +1,2287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dualist Theories of Mind & Body — Study Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f0e0c;
+  --bg-2:#16140f;
+  --bg-3:#1d1a13;
+  --gold:#c9a96e;
+  --gold-soft:#8a7a52;
+  --gold-deep:#5e5236;
+  --paper:#e8e4dc;
+  --paper-mute:#b8b3a7;
+  --line:#3a3429;
+  --line-soft:#2a251c;
+  --green:#7fb069;
+  --red:#c66b6b;
+  --serif:'Cormorant Garamond', Georgia, serif;
+  --sans:'DM Sans', system-ui, sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{
+  background:var(--bg);
+  color:var(--paper);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.55;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* subtle grain */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity:.5;mix-blend-mode:overlay;
+}
+
+.app{display:grid;grid-template-columns:280px 1fr;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{
+  background:linear-gradient(180deg, #14110b 0%, #0f0e0c 100%);
+  border-right:1px solid var(--line-soft);
+  padding:36px 28px;
+  position:sticky;top:0;height:100vh;
+  z-index:5;
+}
+.brand{
+  font-family:var(--serif);
+  font-size:30px;
+  font-weight:500;
+  font-style:italic;
+  color:var(--paper);
+  letter-spacing:.5px;
+  line-height:1.1;
+  margin-bottom:6px;
+}
+.brand-sub{
+  font-family:var(--sans);
+  font-size:10.5px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:500;
+  margin-bottom:42px;
+}
+.brand-sub::after{
+  content:"";display:block;width:36px;height:1px;background:var(--gold);margin-top:14px;
+}
+
+.nav-list{list-style:none;display:flex;flex-direction:column;gap:2px;}
+.nav-btn{
+  background:none;border:none;color:var(--paper-mute);
+  font-family:var(--sans);font-size:13px;font-weight:400;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:14px 14px;text-align:left;cursor:pointer;
+  display:flex;align-items:center;gap:14px;
+  border-left:2px solid transparent;
+  transition:all .25s ease;
+  width:100%;
+}
+.nav-btn:hover{color:var(--paper);background:rgba(201,169,110,.05);}
+.nav-btn.active{
+  color:var(--gold);
+  border-left-color:var(--gold);
+  background:rgba(201,169,110,.07);
+}
+.nav-num{
+  font-family:var(--serif);font-style:italic;font-size:15px;
+  color:var(--gold-soft);font-weight:400;
+  min-width:18px;
+}
+.nav-btn.active .nav-num{color:var(--gold);}
+
+.sidebar-foot{
+  position:absolute;bottom:32px;left:28px;right:28px;
+  font-family:var(--serif);font-style:italic;
+  font-size:13px;color:var(--gold-soft);
+  border-top:1px solid var(--line-soft);
+  padding-top:18px;line-height:1.45;
+}
+
+/* MAIN */
+main{padding:56px 64px 80px;max-width:1400px;position:relative;z-index:2;}
+.panel{display:none;}
+.panel.active{display:block;animation:fadeIn .5s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+.panel-eyebrow{
+  font-family:var(--sans);font-size:10.5px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold);font-weight:500;
+  margin-bottom:14px;
+}
+.panel-title{
+  font-family:var(--serif);font-size:54px;font-weight:400;
+  line-height:1.05;color:var(--paper);margin-bottom:18px;
+  letter-spacing:-.5px;
+}
+.panel-title em{font-style:italic;color:var(--gold);font-weight:400;}
+.panel-lede{
+  font-family:var(--serif);font-size:20px;font-style:italic;font-weight:300;
+  color:var(--paper-mute);max-width:720px;margin-bottom:48px;line-height:1.5;
+}
+
+/* OVERVIEW GRID */
+.lesson-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:1px;background:var(--line-soft);
+  border:1px solid var(--line-soft);
+}
+.lesson-card{
+  background:var(--bg);
+  padding:32px 28px;cursor:pointer;
+  display:flex;flex-direction:column;gap:14px;
+  transition:all .3s ease;
+  position:relative;min-height:200px;
+}
+.lesson-card:hover{background:var(--bg-2);}
+.lesson-card:hover .lc-arrow{opacity:1;transform:translateX(2px);}
+.lc-num{
+  font-family:var(--serif);font-style:italic;font-size:14px;
+  color:var(--gold);letter-spacing:.5px;
+}
+.lc-title{
+  font-family:var(--serif);font-size:24px;font-weight:500;
+  line-height:1.15;color:var(--paper);
+}
+.lc-tag{
+  font-family:var(--sans);font-size:10.5px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--gold-soft);font-weight:500;
+  margin-top:auto;
+}
+.lc-arrow{
+  position:absolute;top:28px;right:24px;
+  font-family:var(--serif);font-size:22px;color:var(--gold);
+  opacity:.4;transition:all .25s ease;
+}
+
+/* LESSON VIEW */
+.lesson-layout{display:grid;grid-template-columns:240px 1fr;gap:48px;}
+.lesson-toc{
+  border-right:1px solid var(--line-soft);padding-right:28px;
+  position:sticky;top:32px;align-self:start;max-height:calc(100vh - 64px);
+  overflow-y:auto;
+}
+.lesson-toc::-webkit-scrollbar{width:4px;}
+.lesson-toc::-webkit-scrollbar-thumb{background:var(--gold-deep);}
+
+.toc-eyebrow{
+  font-family:var(--sans);font-size:9.5px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold);font-weight:500;
+  margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--line-soft);
+}
+.toc-item{
+  display:flex;gap:10px;padding:10px 0;cursor:pointer;
+  border-bottom:1px solid var(--line-soft);
+  font-family:var(--serif);font-size:15px;color:var(--paper-mute);
+  line-height:1.3;transition:color .2s ease;
+}
+.toc-item:hover{color:var(--paper);}
+.toc-item.active{color:var(--gold);}
+.toc-num{
+  font-style:italic;color:var(--gold-soft);min-width:20px;font-size:13px;
+}
+.toc-item.active .toc-num{color:var(--gold);}
+
+.lesson-content{min-width:0;}
+.lesson-eyebrow{
+  font-family:var(--sans);font-size:10.5px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px;
+}
+.lesson-title{
+  font-family:var(--serif);font-size:42px;font-weight:500;
+  line-height:1.1;color:var(--paper);margin-bottom:32px;
+  letter-spacing:-.3px;
+}
+.lesson-title em{font-style:italic;color:var(--gold);}
+
+.diagram-frame{
+  background:linear-gradient(180deg, #13110d 0%, #0d0c0a 100%);
+  border:1px solid var(--line-soft);
+  padding:30px;margin-bottom:32px;
+  position:relative;
+}
+.diagram-frame::before,.diagram-frame::after{
+  content:"";position:absolute;width:14px;height:14px;
+  border:1px solid var(--gold);
+}
+.diagram-frame::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+.diagram-frame::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+
+.diagram-frame svg{width:100%;height:auto;display:block;max-height:560px;}
+
+.diagram-caption{
+  font-family:var(--serif);font-style:italic;font-size:13px;
+  color:var(--gold-soft);text-align:center;margin-top:18px;
+  padding-top:14px;border-top:1px solid var(--line-soft);
+}
+
+.lesson-body{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+.bullet-block{}
+.bullet-eyebrow{
+  font-family:var(--sans);font-size:10px;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--gold);font-weight:500;
+  margin-bottom:18px;display:flex;align-items:center;gap:12px;
+}
+.bullet-eyebrow::after{content:"";flex:1;height:1px;background:var(--line-soft);}
+
+.bullets{list-style:none;display:flex;flex-direction:column;gap:18px;}
+.bullets li{
+  font-family:var(--serif);font-size:17px;line-height:1.5;
+  color:var(--paper);font-weight:400;padding-left:24px;position:relative;
+}
+.bullets li::before{
+  content:"";position:absolute;left:0;top:11px;
+  width:14px;height:1px;background:var(--gold);
+}
+.bullets li b{color:var(--gold);font-weight:500;font-style:italic;}
+.bullets li em{font-style:italic;color:var(--gold);}
+.q-text em{font-style:italic;color:var(--gold);}
+.q-feedback em{font-style:italic;color:var(--gold);}
+.flash-face.front .flash-q b{color:var(--gold);font-weight:500;font-style:italic;}
+.flash-face.back .flash-a em{font-style:italic;color:var(--gold);}
+
+.memory-hook{
+  background:linear-gradient(135deg, rgba(201,169,110,.07) 0%, rgba(201,169,110,.02) 100%);
+  border:1px solid var(--gold-deep);border-left:3px solid var(--gold);
+  padding:24px 26px;
+}
+.mh-label{
+  font-family:var(--sans);font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold);font-weight:600;
+  margin-bottom:12px;
+}
+.mh-text{
+  font-family:var(--serif);font-size:18px;font-style:italic;
+  line-height:1.4;color:var(--paper);
+}
+.mh-text strong{font-style:normal;font-weight:600;color:var(--gold);}
+
+.lesson-nav{
+  display:flex;justify-content:space-between;
+  margin-top:56px;padding-top:24px;border-top:1px solid var(--line-soft);
+}
+.lnav-btn{
+  background:none;border:1px solid var(--line);color:var(--paper-mute);
+  font-family:var(--sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  padding:14px 22px;cursor:pointer;transition:all .2s ease;
+  display:flex;flex-direction:column;gap:4px;font-weight:500;
+}
+.lnav-btn:hover{border-color:var(--gold);color:var(--gold);}
+.lnav-btn:disabled{opacity:.3;cursor:not-allowed;}
+.lnav-label{font-size:9px;color:var(--gold);letter-spacing:2.5px;}
+.lnav-title{font-family:var(--serif);font-size:14px;text-transform:none;font-style:italic;letter-spacing:0;}
+.lnav-btn.next{text-align:right;align-items:flex-end;}
+
+/* FLASHCARDS */
+.flash-toolbar{
+  display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+  margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--line-soft);
+}
+.flash-filter{
+  background:var(--bg-2);border:1px solid var(--line);
+  color:var(--paper-mute);
+  font-family:var(--sans);font-size:11px;letter-spacing:1.5px;
+  text-transform:uppercase;font-weight:500;
+  padding:10px 16px;cursor:pointer;transition:all .2s ease;
+}
+.flash-filter:hover{color:var(--paper);border-color:var(--gold-soft);}
+.flash-filter.active{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+.flash-action{
+  background:none;border:1px solid var(--gold-soft);color:var(--gold);
+  font-family:var(--sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  padding:10px 18px;cursor:pointer;font-weight:500;margin-left:auto;
+  transition:all .2s ease;
+}
+.flash-action:hover{background:var(--gold);color:var(--bg);}
+
+.flash-counter{
+  font-family:var(--serif);font-style:italic;font-size:14px;color:var(--gold-soft);
+}
+
+.flash-stage{
+  display:flex;flex-direction:column;align-items:center;gap:24px;
+  padding:32px 0;
+}
+.flash-card{
+  width:100%;max-width:680px;height:360px;perspective:1500px;cursor:pointer;
+}
+.flash-inner{
+  position:relative;width:100%;height:100%;
+  transition:transform .7s cubic-bezier(0.4,0,0.2,1);
+  transform-style:preserve-3d;
+}
+.flash-card.flipped .flash-inner{transform:rotateY(180deg);}
+
+.flash-face{
+  position:absolute;inset:0;
+  backface-visibility:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:48px;text-align:center;
+  background:linear-gradient(160deg, #16130c 0%, #0d0c0a 100%);
+  border:1px solid var(--line);
+}
+.flash-face::before,.flash-face::after{
+  content:"";position:absolute;width:18px;height:18px;border:1px solid var(--gold);
+}
+.flash-face::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+.flash-face::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+
+.flash-face.front .flash-tag{
+  font-family:var(--sans);font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);font-weight:500;margin-bottom:24px;
+}
+.flash-face.front .flash-q{
+  font-family:var(--serif);font-size:30px;font-weight:400;
+  line-height:1.25;color:var(--paper);max-width:560px;
+}
+.flash-face.front .flash-q em{font-style:italic;color:var(--gold);}
+.flash-face.front .flash-prompt{
+  font-family:var(--serif);font-style:italic;font-size:13px;
+  color:var(--gold-soft);margin-top:32px;
+}
+
+.flash-face.back{transform:rotateY(180deg);}
+.flash-face.back .flash-tag{
+  font-family:var(--sans);font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);font-weight:500;margin-bottom:24px;
+}
+.flash-face.back .flash-a{
+  font-family:var(--serif);font-size:21px;font-weight:400;
+  line-height:1.5;color:var(--paper);max-width:560px;
+}
+.flash-face.back .flash-a b{color:var(--gold);font-weight:500;font-style:italic;}
+
+.flash-controls{display:flex;gap:10px;margin-top:8px;}
+.flash-ctrl{
+  background:none;border:1px solid var(--line);color:var(--paper-mute);
+  font-family:var(--sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  padding:12px 24px;cursor:pointer;font-weight:500;transition:all .2s ease;
+}
+.flash-ctrl:hover{border-color:var(--gold);color:var(--gold);}
+.flash-ctrl:disabled{opacity:.3;cursor:not-allowed;}
+
+/* MCQ */
+.quiz-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--line-soft);
+}
+.quiz-progress{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--gold);}
+.quiz-score{
+  font-family:var(--sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--paper-mute);font-weight:500;
+}
+.quiz-score b{font-family:var(--serif);font-size:18px;color:var(--gold);font-style:italic;font-weight:500;letter-spacing:0;}
+
+.q-card{
+  background:linear-gradient(180deg, #13110d 0%, #0d0c0a 100%);
+  border:1px solid var(--line);padding:40px 44px;
+  position:relative;
+}
+.q-card::before,.q-card::after{
+  content:"";position:absolute;width:14px;height:14px;border:1px solid var(--gold);
+}
+.q-card::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+.q-card::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+
+.q-num{
+  font-family:var(--serif);font-style:italic;font-size:14px;color:var(--gold);
+  letter-spacing:.5px;margin-bottom:14px;
+}
+.q-text{
+  font-family:var(--serif);font-size:24px;font-weight:400;line-height:1.35;
+  color:var(--paper);margin-bottom:32px;
+}
+.q-options{display:flex;flex-direction:column;gap:10px;}
+.q-opt{
+  background:transparent;border:1px solid var(--line);
+  color:var(--paper);font-family:var(--serif);font-size:17px;font-weight:400;
+  padding:16px 22px;text-align:left;cursor:pointer;
+  display:flex;gap:18px;align-items:flex-start;
+  transition:all .2s ease;line-height:1.4;
+}
+.q-opt:hover:not(:disabled){border-color:var(--gold-soft);background:rgba(201,169,110,.04);}
+.q-opt-letter{
+  font-family:var(--sans);font-size:11px;letter-spacing:1.5px;
+  color:var(--gold);font-weight:600;
+  background:rgba(201,169,110,.1);
+  width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;border:1px solid var(--gold-deep);
+}
+.q-opt.correct{border-color:var(--green);background:rgba(127,176,105,.08);}
+.q-opt.correct .q-opt-letter{background:var(--green);color:var(--bg);border-color:var(--green);}
+.q-opt.incorrect{border-color:var(--red);background:rgba(198,107,107,.08);}
+.q-opt.incorrect .q-opt-letter{background:var(--red);color:var(--bg);border-color:var(--red);}
+.q-opt:disabled{cursor:default;}
+.q-opt-text{flex:1;}
+.q-opt b{color:var(--gold);font-weight:500;font-style:italic;}
+.q-opt em{font-style:italic;color:var(--gold);}
+
+.q-feedback{
+  margin-top:24px;padding:20px 24px;border-left:3px solid var(--gold);
+  background:rgba(201,169,110,.05);
+  font-family:var(--serif);font-size:16px;line-height:1.55;color:var(--paper);
+  display:none;
+}
+.q-feedback.show{display:block;animation:fadeIn .3s ease;}
+.q-feedback b{color:var(--gold);font-style:italic;font-weight:500;}
+.q-fb-label{
+  font-family:var(--sans);font-size:10px;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--gold);font-weight:600;
+  display:block;margin-bottom:8px;
+}
+
+.q-actions{
+  display:flex;justify-content:space-between;margin-top:28px;
+}
+.q-btn{
+  background:none;border:1px solid var(--gold);color:var(--gold);
+  font-family:var(--sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  padding:14px 28px;cursor:pointer;font-weight:500;transition:all .2s ease;
+}
+.q-btn:hover{background:var(--gold);color:var(--bg);}
+.q-btn:disabled{opacity:.3;cursor:not-allowed;}
+.q-btn.ghost{border-color:var(--line);color:var(--paper-mute);}
+.q-btn.ghost:hover{border-color:var(--gold-soft);color:var(--paper);background:none;}
+
+.quiz-complete{
+  text-align:center;padding:60px 40px;
+  background:linear-gradient(180deg, #13110d 0%, #0d0c0a 100%);
+  border:1px solid var(--line);position:relative;
+}
+.quiz-complete::before,.quiz-complete::after{
+  content:"";position:absolute;width:18px;height:18px;border:1px solid var(--gold);
+}
+.quiz-complete::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+.quiz-complete::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+.qc-eyebrow{
+  font-family:var(--sans);font-size:11px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:18px;
+}
+.qc-score{
+  font-family:var(--serif);font-style:italic;font-size:88px;font-weight:400;
+  color:var(--paper);line-height:1;margin-bottom:8px;
+}
+.qc-score em{color:var(--gold);}
+.qc-pct{
+  font-family:var(--serif);font-size:18px;color:var(--gold-soft);font-style:italic;
+  margin-bottom:32px;
+}
+.qc-msg{
+  font-family:var(--serif);font-size:20px;line-height:1.5;
+  color:var(--paper-mute);max-width:520px;margin:0 auto 36px;font-style:italic;
+}
+
+/* SVG diagram styles */
+.svg-label{font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;fill:var(--paper);}
+.svg-label-gold{font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;fill:var(--gold);}
+.svg-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;fill:var(--gold);}
+.svg-text{font-family:'Cormorant Garamond',serif;font-size:13px;fill:var(--paper-mute);}
+.svg-text-em{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;fill:var(--gold-soft);}
+.svg-quote{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;fill:var(--paper);}
+
+@media(max-width:1100px){
+  .app{grid-template-columns:1fr;}
+  .sidebar{position:relative;height:auto;}
+  .lesson-layout{grid-template-columns:1fr;}
+  .lesson-toc{position:relative;border-right:none;border-bottom:1px solid var(--line-soft);padding-right:0;padding-bottom:24px;}
+  .lesson-body{grid-template-columns:1fr;}
+  main{padding:32px 28px 60px;}
+  .panel-title{font-size:38px;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">Mind &<br/>Body</div>
+    <div class="brand-sub">Dualist Theories</div>
+    <ul class="nav-list">
+      <li><button class="nav-btn active" data-panel="overview"><span class="nav-num">I</span>Overview</button></li>
+      <li><button class="nav-btn" data-panel="lessons"><span class="nav-num">II</span>Lessons</button></li>
+      <li><button class="nav-btn" data-panel="flashcards"><span class="nav-num">III</span>Flashcards</button></li>
+      <li><button class="nav-btn" data-panel="mcq"><span class="nav-num">IV</span>MCQ</button></li>
+    </ul>
+    <div class="sidebar-foot">
+      after Westphal,<br/><em>The Mind–Body Problem</em><br/>(MIT, 2016) — ch. 2
+    </div>
+  </aside>
+
+  <main>
+    <!-- OVERVIEW -->
+    <section class="panel active" id="overview">
+      <div class="panel-eyebrow">Chapter II · Twelve Lessons</div>
+      <h1 class="panel-title">Dualist theories of <em>mind</em> &amp; <em>body</em></h1>
+      <p class="panel-lede">Twelve lessons tracing dualism from its starting propositions through its varieties — substance, property, parallelist, epiphenomenalist, emergent — and the objections that haunt each.</p>
+      <div class="lesson-grid" id="overviewGrid"></div>
+    </section>
+
+    <!-- LESSONS -->
+    <section class="panel" id="lessons">
+      <div class="lesson-layout">
+        <aside class="lesson-toc">
+          <div class="toc-eyebrow">Lessons</div>
+          <div id="lessonTOC"></div>
+        </aside>
+        <div class="lesson-content" id="lessonContent"></div>
+      </div>
+    </section>
+
+    <!-- FLASHCARDS -->
+    <section class="panel" id="flashcards">
+      <div class="panel-eyebrow">III · Active Recall</div>
+      <h1 class="panel-title">Flashcards</h1>
+      <p class="panel-lede">Filter by topic. Tap a card to reveal the answer. Shuffle to break order-bias.</p>
+      <div class="flash-toolbar" id="flashToolbar"></div>
+      <div class="flash-stage">
+        <div class="flash-counter" id="flashCounter"></div>
+        <div class="flash-card" id="flashCard">
+          <div class="flash-inner">
+            <div class="flash-face front">
+              <div class="flash-tag" id="flashTagFront"></div>
+              <div class="flash-q" id="flashQ"></div>
+              <div class="flash-prompt">— click to reveal —</div>
+            </div>
+            <div class="flash-face back">
+              <div class="flash-tag" id="flashTagBack"></div>
+              <div class="flash-a" id="flashA"></div>
+            </div>
+          </div>
+        </div>
+        <div class="flash-controls">
+          <button class="flash-ctrl" id="flashPrev">‹ Prev</button>
+          <button class="flash-ctrl" id="flashFlip">Flip</button>
+          <button class="flash-ctrl" id="flashNext">Next ›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MCQ -->
+    <section class="panel" id="mcq">
+      <div class="panel-eyebrow">IV · Exam Preparation</div>
+      <h1 class="panel-title">Multiple choice</h1>
+      <p class="panel-lede">Twenty exam-style questions. Immediate feedback with explanation. The score updates as you go.</p>
+      <div id="quizArea"></div>
+    </section>
+  </main>
+</div>
+
+<script>
+/* =========================================
+   DATA
+   ========================================= */
+const LESSONS = [];
+const FLASHCARDS = [];
+const QUESTIONS = [];
+
+/* =================== LESSON 1 =================== */
+LESSONS.push({
+  id:1, num:"I", eyebrow:"Foundations",
+  title:"What is <em>dualism</em>?",
+  caption:"The four foundational propositions of mind–body dualism.",
+  svg:`<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="mindGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#c9a96e" stop-opacity="0.18"/>
+        <stop offset="1" stop-color="#c9a96e" stop-opacity="0.02"/>
+      </linearGradient>
+      <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#8a7a52" stop-opacity="0.22"/>
+        <stop offset="1" stop-color="#8a7a52" stop-opacity="0.04"/>
+      </linearGradient>
+      <pattern id="dotPat" width="4" height="4" patternUnits="userSpaceOnUse">
+        <circle cx="2" cy="2" r="0.6" fill="#8a7a52" opacity="0.5"/>
+      </pattern>
+    </defs>
+
+    <!-- top label -->
+    <text x="450" y="34" text-anchor="middle" class="svg-label-gold">ANTINATURALIST CLAIM</text>
+    <line x1="350" y1="44" x2="550" y2="44" stroke="#c9a96e" stroke-width="0.6"/>
+    <text x="450" y="74" text-anchor="middle" class="svg-title" font-size="22">Mind and body are two separate &amp; very different things</text>
+
+    <!-- vertical divider -->
+    <line x1="450" y1="100" x2="450" y2="430" stroke="#3a3429" stroke-width="0.8" stroke-dasharray="2 4"/>
+
+    <!-- LEFT pillar: NONPHYSICAL -->
+    <rect x="80" y="110" width="320" height="280" fill="url(#mindGrad)" stroke="#c9a96e" stroke-width="1"/>
+    <text x="240" y="142" text-anchor="middle" class="svg-label-gold" style="font-size:11px;letter-spacing:3px">NONPHYSICAL</text>
+    <text x="240" y="180" text-anchor="middle" font-family="Cormorant Garamond" font-size="32" font-style="italic" fill="#e8e4dc">the mind</text>
+    <text x="240" y="206" text-anchor="middle" class="svg-text-em">— or soul —</text>
+
+    <line x1="130" y1="230" x2="350" y2="230" stroke="#5e5236" stroke-width="0.6"/>
+    <text x="240" y="256" text-anchor="middle" class="svg-text">no spatial location</text>
+    <text x="240" y="278" text-anchor="middle" class="svg-text">no mass or energy</text>
+    <text x="240" y="300" text-anchor="middle" class="svg-text">thoughts · feelings · sensations</text>
+    <text x="240" y="322" text-anchor="middle" class="svg-text">consciousness</text>
+    <text x="240" y="370" text-anchor="middle" class="svg-text-em">"not part of nature"</text>
+
+    <!-- RIGHT pillar: PHYSICAL -->
+    <rect x="500" y="110" width="320" height="280" fill="url(#bodyGrad)" stroke="#8a7a52" stroke-width="1"/>
+    <rect x="500" y="110" width="320" height="280" fill="url(#dotPat)" opacity="0.6"/>
+    <text x="660" y="142" text-anchor="middle" class="svg-label" style="fill:#c9a96e;font-size:11px;letter-spacing:3px">PHYSICAL</text>
+    <text x="660" y="180" text-anchor="middle" font-family="Cormorant Garamond" font-size="32" font-style="italic" fill="#e8e4dc">the body</text>
+    <text x="660" y="206" text-anchor="middle" class="svg-text-em">— including the brain —</text>
+
+    <line x1="550" y1="230" x2="770" y2="230" stroke="#5e5236" stroke-width="0.6"/>
+    <text x="660" y="256" text-anchor="middle" class="svg-text">spatial location</text>
+    <text x="660" y="278" text-anchor="middle" class="svg-text">mass &amp; energy</text>
+    <text x="660" y="300" text-anchor="middle" class="svg-text">neurons · cells · atoms</text>
+    <text x="660" y="322" text-anchor="middle" class="svg-text">obeys conservation laws</text>
+    <text x="660" y="370" text-anchor="middle" class="svg-text-em">"part of nature"</text>
+
+    <!-- bottom propositions -->
+    <text x="450" y="445" text-anchor="middle" class="svg-label-gold">FOUR PROPOSITIONS</text>
+    <text x="180" y="478" class="svg-text" font-size="12">(1) The mind is a nonphysical thing.</text>
+    <text x="180" y="498" class="svg-text" font-size="12">(2) The body is a physical thing.</text>
+    <text x="500" y="478" class="svg-text" font-size="12">(3) Mind and body interact.</text>
+    <text x="500" y="498" class="svg-text" font-size="12">(4) Physical &amp; nonphysical cannot interact.</text>
+
+    <!-- corner brackets -->
+    <path d="M 60 110 L 60 100 L 80 100" stroke="#c9a96e" stroke-width="0.8" fill="none"/>
+    <path d="M 840 390 L 840 400 L 820 400" stroke="#8a7a52" stroke-width="0.8" fill="none"/>
+  </svg>`,
+  bullets:[
+    "<b>Dualism</b> = the antinaturalist claim that mind and body are two separate, very different things.",
+    "The two sorts: <b>nonphysical</b> (mind, soul) and <b>physical</b> (body).",
+    "The mind, on this view, is <b>not part of nature</b>. Nature is not all there is.",
+    "Until ~1960s this was popular even among professional philosophers. Less so now.",
+    "The four propositions generate the whole problem: any three together force you to deny the fourth."
+  ],
+  hook:{
+    label:"Memory hook",
+    html:"<strong>1, 2, 3, 4.</strong> The mind <em>isn't</em> physical (1), the body <em>is</em> (2), they <em>interact</em> (3) — but physical and nonphysical things <em>can't</em> interact (4). Four propositions, none easily dropped. That tetrad <em>is</em> the mind–body problem."
+  }
+});
+
+/* =================== LESSON 2 =================== */
+LESSONS.push({
+  id:2, num:"II", eyebrow:"Substance Dualism",
+  title:"<em>Substance</em> dualism &amp; interactionism",
+  caption:"Two distinct substances that can exist independently — and somehow interact.",
+  svg:`<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="mindOrb" cx="0.5" cy="0.5">
+        <stop offset="0" stop-color="#c9a96e" stop-opacity="0.45"/>
+        <stop offset="0.6" stop-color="#c9a96e" stop-opacity="0.12"/>
+        <stop offset="1" stop-color="#c9a96e" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="bodyOrb" cx="0.5" cy="0.5">
+        <stop offset="0" stop-color="#8a7a52" stop-opacity="0.4"/>
+        <stop offset="0.7" stop-color="#5e5236" stop-opacity="0.15"/>
+        <stop offset="1" stop-color="#5e5236" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <text x="450" y="32" text-anchor="middle" class="svg-label-gold">A SUBSTANCE = AN INDIVIDUAL THING THAT CAN EXIST BY ITSELF</text>
+    <line x1="200" y1="42" x2="700" y2="42" stroke="#5e5236" stroke-width="0.5"/>
+
+    <!-- MIND substance -->
+    <circle cx="220" cy="240" r="130" fill="url(#mindOrb)"/>
+    <circle cx="220" cy="240" r="92" fill="none" stroke="#c9a96e" stroke-width="1" stroke-dasharray="2 3"/>
+    <circle cx="220" cy="240" r="60" fill="none" stroke="#c9a96e" stroke-width="0.6"/>
+    <text x="220" y="232" text-anchor="middle" font-family="Cormorant Garamond" font-size="28" font-style="italic" fill="#e8e4dc">MIND</text>
+    <text x="220" y="256" text-anchor="middle" class="svg-text-em">nonphysical</text>
+    <text x="220" y="394" text-anchor="middle" class="svg-label-gold">SUBSTANCE 1</text>
+    <text x="220" y="412" text-anchor="middle" class="svg-text">can exist independently</text>
+
+    <!-- BODY substance -->
+    <circle cx="680" cy="240" r="130" fill="url(#bodyOrb)"/>
+    <rect x="624" y="184" width="112" height="112" fill="none" stroke="#8a7a52" stroke-width="1" stroke-dasharray="2 3"/>
+    <rect x="650" y="210" width="60" height="60" fill="none" stroke="#8a7a52" stroke-width="0.6"/>
+    <text x="680" y="232" text-anchor="middle" font-family="Cormorant Garamond" font-size="28" font-style="italic" fill="#e8e4dc">BODY</text>
+    <text x="680" y="256" text-anchor="middle" class="svg-text-em">physical</text>
+    <text x="680" y="394" text-anchor="middle" class="svg-label-gold">SUBSTANCE 2</text>
+    <text x="680" y="412" text-anchor="middle" class="svg-text">can exist independently</text>
+
+    <!-- interaction arrow with question mark -->
+    <path d="M 320 220 Q 450 180 580 220" stroke="#c9a96e" stroke-width="1.2" fill="none" marker-end="url(#arrR2)"/>
+    <path d="M 580 260 Q 450 300 320 260" stroke="#c9a96e" stroke-width="1.2" fill="none" marker-end="url(#arrL2)"/>
+    <defs>
+      <marker id="arrR2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#c9a96e"/>
+      </marker>
+      <marker id="arrL2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#c9a96e"/>
+      </marker>
+    </defs>
+    <circle cx="450" cy="240" r="22" fill="#0f0e0c" stroke="#c9a96e" stroke-width="1"/>
+    <text x="450" y="247" text-anchor="middle" font-family="Cormorant Garamond" font-size="22" fill="#c9a96e" font-style="italic">?</text>
+    <text x="450" y="190" text-anchor="middle" class="svg-text">causal interaction</text>
+    <text x="450" y="294" text-anchor="middle" class="svg-text">causal interaction</text>
+
+    <!-- example bottom -->
+    <line x1="120" y1="450" x2="780" y2="450" stroke="#3a3429" stroke-width="0.5"/>
+    <text x="450" y="476" text-anchor="middle" class="svg-text-em">example: the body takes in beer →</text>
+    <text x="450" y="498" text-anchor="middle" class="svg-quote">"the mind becomes confused, and one's mood may change"</text>
+  </svg>`,
+  bullets:[
+    "A <b>substance</b>, in the philosophical tradition, is an individual thing that can exist by itself — independently of other substances.",
+    "<b>Substance dualism:</b> mind and body are <b>distinct substances</b> — each could in principle exist without the other.",
+    "<b>Interactionist substance dualism</b> adds: these two substances <b>causally interact</b>. Beer in the body → confusion in the mind.",
+    "The body can clearly exist without the mind (after burial). Whether the mind can exist without the body is the disputed half.",
+    "This is the historic, common-sense version of dualism — the one Descartes is associated with."
+  ],
+  hook:{
+    label:"Memory hook",
+    html:"Two <em>somethings</em>, each able to stand alone — like two unrelated planets that nevertheless seem to pull on each other. Substance dualism says they are <strong>two</strong>; interactionism says they <strong>tug</strong>."
+  }
+});
+
+/* =================== LESSON 3 =================== */
+LESSONS.push({
+  id:3, num:"III", eyebrow:"Argument from Possibility",
+  title:"The disappearing-body <em>thought experiment</em>",
+  caption:"If a story is free of contradiction, the event is possible — and that suffices for dualism.",
+  svg:`<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="mindCloud" cx="0.5" cy="0.5">
+        <stop offset="0" stop-color="#c9a96e" stop-opacity="0.5"/>
+        <stop offset="0.7" stop-color="#c9a96e" stop-opacity="0.1"/>
+        <stop offset="1" stop-color="#c9a96e" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <text x="450" y="32" text-anchor="middle" class="svg-label-gold">A STORY WITHOUT CONTRADICTION = A POSSIBILITY</text>
+    <line x1="220" y1="42" x2="680" y2="42" stroke="#5e5236" stroke-width="0.5"/>
+    <rect x="120" y="280" width="540" height="120" fill="none" stroke="#8a7a52" stroke-width="1.2"/>
+    <rect x="120" y="280" width="540" height="20" fill="#1d1a13" stroke="#8a7a52" stroke-width="1"/>
+    <ellipse cx="195" cy="290" rx="55" ry="14" fill="none" stroke="#8a7a52" stroke-width="0.8"/>
+    <line x1="120" y1="320" x2="660" y2="320" stroke="#5e5236" stroke-width="0.5" stroke-dasharray="3 3"/>
+    <line x1="120" y1="340" x2="660" y2="340" stroke="#5e5236" stroke-width="0.5" stroke-dasharray="3 3"/>
+    <line x1="120" y1="360" x2="660" y2="360" stroke="#5e5236" stroke-width="0.5" stroke-dasharray="3 3"/>
+    <line x1="120" y1="270" x2="120" y2="410" stroke="#8a7a52" stroke-width="2"/>
+    <line x1="660" y1="270" x2="660" y2="410" stroke="#8a7a52" stroke-width="2"/>
+    <circle cx="120" cy="268" r="4" fill="#c9a96e"/>
+    <circle cx="660" cy="268" r="4" fill="#c9a96e"/>
+    <text x="400" y="378" text-anchor="middle" class="svg-text-em">— covers flat where body should be —</text>
+    <ellipse cx="400" cy="180" rx="170" ry="80" fill="url(#mindCloud)"/>
+    <text x="400" y="160" text-anchor="middle" font-family="Cormorant Garamond" font-size="22" font-style="italic" fill="#e8e4dc">my mind, intact</text>
+    <text x="400" y="186" text-anchor="middle" class="svg-text">thoughts · sensations · pain in</text>
+    <text x="400" y="204" text-anchor="middle" class="svg-text">"the back where my back ought to be"</text>
+    <line x1="400" y1="262" x2="400" y2="278" stroke="#c9a96e" stroke-width="0.8" stroke-dasharray="2 3"/>
+    <rect x="710" y="290" width="44" height="50" fill="none" stroke="#c9a96e" stroke-width="1"/>
+    <path d="M 754 304 Q 770 304 770 318 Q 770 332 754 332" stroke="#c9a96e" stroke-width="1" fill="none"/>
+    <path d="M 720 286 Q 720 278 724 278 M 732 286 Q 732 274 736 274 M 744 286 Q 744 278 748 278" stroke="#8a7a52" stroke-width="0.8" fill="none"/>
+    <text x="732" y="358" text-anchor="middle" class="svg-text-em" font-size="11">coffee</text>
+    <line x1="120" y1="440" x2="780" y2="440" stroke="#3a3429" stroke-width="0.5"/>
+    <text x="450" y="465" text-anchor="middle" class="svg-label-gold">THEREFORE</text>
+    <text x="450" y="492" text-anchor="middle" class="svg-quote">mind and body <tspan fill="#c9a96e">can</tspan> exist independently — i.e. they are distinct.</text>
+  </svg>`,
+  bullets:[
+    "Imagine waking up: the bedcovers are flat where your body should be — yet your <b>mind, sensations, even back-pain</b> remain.",
+    "<b>The proper test of possibility is freedom from contradiction</b> — not mere imaginability.",
+    "Lottery example: I can <em>imagine</em> winning, but more importantly I can <b>describe</b> winning without contradiction.",
+    "If the story has no contradiction, the event is possible. So mind <b>can</b> exist without body — they are distinct.",
+    "The claim is modal (<b>can</b>), not actual (<b>do</b>). For now they are stuck together; the point is they need not be."
+  ],
+  hook:{
+    label:"Memory hook",
+    html:"<strong>Describability beats imaginability.</strong> If you can tell the story all the way through with no inner contradiction — bed flat, mind intact, coffee steaming — the world it describes is possible. That's all dualism needs."
+  }
+});
+
+/* =================== LESSON 4 =================== */
+LESSONS.push({
+  id:4, num:"IV", eyebrow:"Descartes' Stumbling Block",
+  title:"The <em>interaction</em> problem",
+  caption:"Princess Elisabeth & Gassendi's classic objection: how can the spatial touch the non-spatial?",
+  svg:`<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="gridPat" width="20" height="20" patternUnits="userSpaceOnUse">
+        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#3a3429" stroke-width="0.4"/>
+      </pattern>
+      <pattern id="cloudPat" width="12" height="12" patternUnits="userSpaceOnUse">
+        <circle cx="6" cy="6" r="0.8" fill="#c9a96e" opacity="0.3"/>
+      </pattern>
+    </defs>
+
+    <text x="450" y="32" text-anchor="middle" class="svg-label-gold">HOW CAN THE NON-SPATIAL TOUCH THE SPATIAL?</text>
+    <line x1="200" y1="42" x2="700" y2="42" stroke="#5e5236" stroke-width="0.5"/>
+
+    <!-- LEFT: nonphysical realm -->
+    <rect x="60" y="80" width="320" height="320" fill="url(#cloudPat)" stroke="#c9a96e" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="220" y="110" text-anchor="middle" class="svg-label-gold">NONPHYSICAL · NON-SPATIAL</text>
+    <text x="220" y="146" text-anchor="middle" font-family="Cormorant Garamond" font-size="26" font-style="italic" fill="#e8e4dc">the mind</text>
+    <text x="220" y="200" text-anchor="middle" class="svg-text">no coordinates</text>
+    <text x="220" y="222" text-anchor="middle" class="svg-text">no extension</text>
+    <text x="220" y="244" text-anchor="middle" class="svg-text">no mass · no energy</text>
+    <text x="220" y="266" text-anchor="middle" class="svg-text">nowhere to "push from"</text>
+
+    <text x="220" y="338" text-anchor="middle" class="svg-text-em">A thought has no</text>
+    <text x="220" y="356" text-anchor="middle" class="svg-text-em">latitude or longitude.</text>
+
+    <!-- RIGHT: physical realm -->
+    <rect x="520" y="80" width="320" height="320" fill="url(#gridPat)" stroke="#8a7a52" stroke-width="1"/>
+    <text x="680" y="110" text-anchor="middle" class="svg-label-gold">PHYSICAL · SPATIAL</text>
+    <text x="680" y="146" text-anchor="middle" font-family="Cormorant Garamond" font-size="26" font-style="italic" fill="#e8e4dc">the body</text>
+    <!-- mini neuron cluster -->
+    <circle cx="640" cy="220" r="4" fill="#c9a96e"/>
+    <circle cx="700" cy="240" r="4" fill="#c9a96e"/>
+    <circle cx="730" cy="200" r="3" fill="#c9a96e"/>
+    <circle cx="660" cy="270" r="3" fill="#c9a96e"/>
+    <line x1="640" y1="220" x2="700" y2="240" stroke="#8a7a52" stroke-width="0.8"/>
+    <line x1="700" y1="240" x2="730" y2="200" stroke="#8a7a52" stroke-width="0.8"/>
+    <line x1="700" y1="240" x2="660" y2="270" stroke="#8a7a52" stroke-width="0.8"/>
+    <text x="680" y="320" text-anchor="middle" class="svg-text">extension · mass · energy</text>
+    <text x="680" y="342" text-anchor="middle" class="svg-text">obeys conservation laws</text>
+    <text x="680" y="364" text-anchor="middle" class="svg-text-em">things to push, places to push from</text>
+
+    <!-- BARRIER between -->
+    <line x1="430" y1="80" x2="430" y2="400" stroke="#c66b6b" stroke-width="2"/>
+    <line x1="438" y1="80" x2="438" y2="400" stroke="#c66b6b" stroke-width="2"/>
+    <text x="434" y="76" text-anchor="middle" class="svg-label-gold" style="fill:#c66b6b;font-size:9px">BARRIER</text>
+
+    <!-- broken arrows -->
+    <path d="M 380 200 L 410 200" stroke="#c9a96e" stroke-width="1.2" fill="none"/>
+    <path d="M 422 196 L 410 200 L 422 204" stroke="#c66b6b" stroke-width="1.5" fill="none"/>
+    <text x="395" y="192" text-anchor="middle" class="svg-text-em" font-size="10">×</text>
+
+    <path d="M 460 280 L 490 280" stroke="#c9a96e" stroke-width="1.2" fill="none"/>
+    <path d="M 446 276 L 458 280 L 446 284" stroke="#c66b6b" stroke-width="1.5" fill="none"/>
+
+    <!-- Bottom quote -->
+    <line x1="120" y1="430" x2="780" y2="430" stroke="#3a3429" stroke-width="0.5"/>
+    <text x="450" y="458" text-anchor="middle" class="svg-text-em">— Princess Elisabeth of Bohemia, Pierre Gassendi —</text>
+    <text x="450" y="486" text-anchor="middle" class="svg-quote">"How can mind and body interact, if one is physical and therefore</text>
+    <text x="450" y="506" text-anchor="middle" class="svg-quote">spatial, and the other is nonphysical and therefore nonspatial?"</text>
+  </svg>`,
+  bullets:[
+    "<b>The classic objection</b> (raised to Descartes by Princess Elisabeth and Gassendi): the mind has no spatial location, the body does. They have no shared coordinate system in which to <em>push</em>.",
+    "Causal interaction seems to require some shared dimension — at minimum, a place where contact happens.",
+    "If the mind has neither extension nor energy, it has no way to <b>act on</b> a physical thing without violating physics.",
+    "Symmetrically: the body, made entirely of physical things, has nothing that could <b>reach into</b> a non-spatial realm.",
+    "This is the <b>core difficulty</b> all of substance dualism must answer. Westphal: \"perhaps it is impossible.\""
+  ],
+  hook:{
+    label:"Memory hook",
+    html:"<strong>No coordinates, no contact.</strong> A nonphysical mind has no location to push from; a physical body has nowhere to reach into. Princess Elisabeth's question — <em>how, exactly?</em> — has never been satisfactorily answered."
+  }
+});
+
+/* =================== LESSON 5 =================== */
+LESSONS.push({
+  id:5, num:"V", eyebrow:"Modern Attempts & Their Failures",
+  title:"Lowe's <em>causal tree</em> &amp; the pairing problem",
+  caption:"E. J. Lowe's branching tree of brain events — and why two minds in a room break dualism.",
+  svg:`<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="mindHalo" cx="0.5" cy="0.5">
+        <stop offset="0" stop-color="#c9a96e" stop-opacity="0.5"/>
+        <stop offset="1" stop-color="#c9a96e" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <!-- LEFT panel: Lowe's tree -->
+    <text x="225" y="32" text-anchor="middle" class="svg-label-gold">LOWE'S CAUSAL TREE</text>
+    <line x1="80" y1="42" x2="370" y2="42" stroke="#5e5236" stroke-width="0.5"/>
+
+    <!-- mind cloud at top -->
+    <ellipse cx="225" cy="80" rx="80" ry="22" fill="url(#mindHalo)"/>
+    <text x="225" y="86" text-anchor="middle" font-family="Cormorant Garamond" font-size="16" font-style="italic" fill="#e8e4dc">mind</text>
+
+    <!-- branching tree (no tips - loops back) -->
+    <g stroke="#8a7a52" stroke-width="1" fill="none">
+      <line x1="225" y1="105" x2="225" y2="135"/>
+      <!-- level 1 -->
+      <line x1="225" y1="135" x2="160" y2="170"/>
+      <line x1="225" y1="135" x2="290" y2="170"/>
+      <!-- level 2 -->
+      <line x1="160" y1="170" x2="125" y2="210"/>
+      <line x1="160" y1="170" x2="190" y2="210"/>
+      <line x1="290" y1="170" x2="265" y2="210"/>
+      <line x1="290" y1="170" x2="325" y2="210"/>
+      <!-- level 3 -->
+      <line x1="125" y1="210" x2="105" y2="250"/>
+      <line x1="125" y1="210" x2="145" y2="250"/>
+      <line x1="190" y1="210" x2="180" y2="250"/>
+      <line x1="190" y1="210" x2="225" y2="250"/>
+      <line x1="265" y1="210" x2="240" y2="250"/>
+      <line x1="265" y1="210" x2="280" y2="250"/>
+      <line x1="325" y1="210" x2="310" y2="250"/>
+      <line x1="325" y1="210" x2="345" y2="250"/>
+      <!-- loops (no tips!) -->
+      <path d="M 105 250 Q 90 290 145 290 Q 165 290 145 250"/>
+      <path d="M 180 250 Q 200 295 225 290 Q 245 285 225 250"/>
+      <path d="M 240 250 Q 250 295 280 290 Q 300 285 280 250"/>
+      <path d="M 310 250 Q 320 290 345 290 Q 360 285 345 250"/>
+    </g>
+    <!-- nodes -->
+    <g fill="#c9a96e">
+      <circle cx="225" cy="135" r="3"/>
+      <circle cx="160" cy="170" r="3"/>
+      <circle cx="290" cy="170" r="3"/>
+      <circle cx="125" cy="210" r="2.5"/>
+      <circle cx="190" cy="210" r="2.5"/>
+      <circle cx="265" cy="210" r="2.5"/>
+      <circle cx="325" cy="210" r="2.5"/>
+      <circle cx="105" cy="250" r="2"/>
+      <circle cx="145" cy="250" r="2"/>
+      <circle cx="180" cy="250" r="2"/>
+      <circle cx="225" cy="250" r="2"/>
+      <circle cx="240" cy="250" r="2"/>
+      <circle cx="280" cy="250" r="2"/>
+      <circle cx="310" cy="250" r="2"/>
+      <circle cx="345" cy="250" r="2"/>
+    </g>
+
+    <text x="225" y="320" text-anchor="middle" class="svg-text-em" font-size="11">no "tips" — chains intertwine</text>
+    <text x="225" y="346" text-anchor="middle" class="svg-text" font-size="11">mind talks to whole tree?</text>
+
+    <text x="225" y="385" text-anchor="middle" class="svg-text-em" font-size="11">but "how does the mind</text>
+    <text x="225" y="402" text-anchor="middle" class="svg-text-em" font-size="11">activate the whole tree?"</text>
+
+    <!-- DIVIDER -->
+    <line x1="430" y1="60" x2="430" y2="460" stroke="#3a3429" stroke-width="0.6" stroke-dasharray="2 4"/>
+
+    <!-- RIGHT panel: PAIRING PROBLEM -->
+    <text x="660" y="32" text-anchor="middle" class="svg-label-gold">THE PAIRING PROBLEM</text>
+    <line x1="500" y1="42" x2="820" y2="42" stroke="#5e5236" stroke-width="0.5"/>
+
+    <!-- Person 1 -->
+    <ellipse cx="540" cy="100" rx="38" ry="14" fill="url(#mindHalo)"/>
+    <text x="540" y="104" text-anchor="middle" font-family="Cormorant Garamond" font-size="13" font-style="italic" fill="#e8e4dc">my mind</text>
+    <line x1="540" y1="118" x2="540" y2="180" stroke="#c9a96e" stroke-width="1" stroke-dasharray="2 3"/>
+    <!-- body 1 -->
+    <circle cx="540" cy="200" r="22" fill="none" stroke="#8a7a52" stroke-width="1"/>
+    <text x="540" y="205" text-anchor="middle" class="svg-text" font-size="11">brain A</text>
+    <!-- arm -->
+    <line x1="540" y1="222" x2="540" y2="280" stroke="#8a7a52" stroke-width="1.2"/>
+    <line x1="540" y1="280" x2="555" y2="310" stroke="#8a7a52" stroke-width="1.2"/>
+    <text x="510" y="320" class="svg-text-em" font-size="11">my arm</text>
+
+    <!-- Person 2 -->
+    <ellipse cx="780" cy="100" rx="38" ry="14" fill="url(#mindHalo)" opacity="0.7"/>
+    <text x="780" y="104" text-anchor="middle" font-family="Cormorant Garamond" font-size="13" font-style="italic" fill="#e8e4dc">your mind</text>
+    <line x1="780" y1="118" x2="780" y2="180" stroke="#c9a96e" stroke-width="1" stroke-dasharray="2 3"/>
+    <circle cx="780" cy="200" r="22" fill="none" stroke="#8a7a52" stroke-width="1"/>
+    <text x="780" y="205" text-anchor="middle" class="svg-text" font-size="11">brain B</text>
+    <line x1="780" y1="222" x2="780" y2="280" stroke="#8a7a52" stroke-width="1.2"/>
+    <line x1="780" y1="280" x2="795" y2="310" stroke="#8a7a52" stroke-width="1.2"/>
+    <text x="795" y="320" class="svg-text-em" font-size="11">your arm</text>
+
+    <!-- crossed arrow showing mistake -->
+    <path d="M 555 110 Q 660 130 765 200" stroke="#c66b6b" stroke-width="1" fill="none" stroke-dasharray="2 3"/>
+    <text x="660" y="148" text-anchor="middle" class="svg-text-em" style="fill:#c66b6b" font-size="10">why not this?</text>
+
+    <text x="660" y="380" text-anchor="middle" class="svg-text-em" font-size="11">If mind and body are non-spatial / spatial,</text>
+    <text x="660" y="400" text-anchor="middle" class="svg-text-em" font-size="11">what <tspan font-style="italic" fill="#c9a96e">pairs</tspan> my mind with my brain — not yours?</text>
+
+    <!-- Bottom -->
+    <line x1="60" y1="460" x2="840" y2="460" stroke="#3a3429" stroke-width="0.5"/>
+    <text x="450" y="490" text-anchor="middle" class="svg-quote">Lowe's tree-talk doesn't help: how the mind <tspan fill="#c9a96e">activates</tspan> a tree is the same problem as before.</text>
+  </svg>`,
+  bullets:[
+    "<b>E. J. Lowe</b>: causal chains in the brain branch and intertwine — there are no \"tips\" to interact with.",
+    "Lowe's fix: the mind communicates with the <b>whole tree</b>, not its endpoints. Westphal: <em>but the same problem returns</em> — how does the mind activate the whole tree?",
+    "Odd extra wrinkle: Lowe's intention and the tree's activation happen <b>simultaneously</b> — one explains the <em>how</em>, the other the <em>fact</em>. Suspicious.",
+    "<b>The pairing problem</b>: if mind and body are genuinely distinct, why is <em>my</em> mind paired with <em>my</em> brain — not yours? Why does my arm rise, not yours?",
+    "Without spatial relations, there's no obvious answer. The pairing problem is interactionist substance dualism's hardest worry."
+  ],
+  hook:{
+    label:"Memory hook",
+    html:"<strong>Trees with no tips, minds with no addresses.</strong> Lowe redraws the picture but the question survives. And in a room of two people, what makes my volition route to <em>my</em> arm rather than yours? — that's the pairing problem in one image."
+  }
+});
+
+/* =================== LESSON 6 =================== */
+LESSONS.push({
+  id:6, num:"VI", eyebrow:"Property Dualism",
+  title:"<em>Property</em> dualism — one substance, two kinds of properties",
+  caption:"The painting analogy: one canvas, but with both physical and aesthetic (nonphysical) properties.",
+  svg:`<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="canvasG" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#5e5236" stop-opacity="0.3"/>
+        <stop offset="1" stop-color="#3a3429" stop-opacity="0.5"/>
+      </linearGradient>
+    </defs>
+
+    <text x="450" y="32" text-anchor="middle" class="svg-label-gold">ONE SUBSTANCE · TWO KINDS OF PROPERTY</text>
+    <line x1="220" y1="42" x2="680" y2="42" stroke="#5e5236" stroke-width="0.5"/>
+
+    <!-- The painting -->
+    <!-- easel -->
+    <line x1="450" y1="380" x2="380" y2="460" stroke="#8a7a52" stroke-width="1.5"/>
+    <line x1="450" y1="380" x2="520" y2="460" stroke="#8a7a52" stroke-width="1.5"/>
+    <line x1="400" y1="430" x2="500" y2="430" stroke="#8a7a52" stroke-width="1"/>
+
+    <!-- frame -->
+    <rect x="350" y="130" width="200" height="240" fill="url(#canvasG)" stroke="#c9a96e" stroke-width="2"/>
+    <rect x="362" y="142" width="176" height="216" fill="none" stroke="#8a7a52" stroke-width="0.6"/>
+    <!-- sketch lines (the "painting") -->
+    <g stroke="#c9a96e" stroke-width="0.8" fill="none" opacity="0.6">
+      <path d="M 380 200 Q 420 180 460 200 T 530 220"/>
+      <path d="M 380 240 Q 410 230 450 240 T 530 250"/>
+      <circle cx="430" cy="280" r="20"/>
+      <line x1="380" y1="320" x2="530" y2="320"/>
+    </g>
+    <text x="450" y="392" text-anchor="middle" class="svg-text-em" font-size="11">one canvas</text>
+
+    <!-- PHYSICAL properties (left side) -->
+    <text x="180" y="100" text-anchor="middle" class="svg-label-gold" style="fill:#8a7a52">PHYSICAL PROPERTIES</text>
+    <line x1="100" y1="110" x2="260" y2="110" stroke="#5e5236" stroke-width="0.5"/>
+
+    <g font-family="Cormorant Garamond" font-size="14" fill="#b8b3a7">
+      <text x="180" y="146" text-anchor="middle">paint</text>
+      <text x="180" y="180" text-anchor="middle">canvas fibers</text>
+      <text x="180" y="214" text-anchor="middle">wood frame</text>
+      <text x="180" y="248" text-anchor="middle">pigment chemistry</text>
+      <text x="180" y="282" text-anchor="middle">mass · weight</text>
+    </g>
+    <!-- arrows linking to canvas -->
+    <g stroke="#8a7a52" stroke-width="0.6" fill="none" stroke-dasharray="2 3">
+      <line x1="240" y1="146" x2="350" y2="180"/>
+      <line x1="240" y1="180" x2="350" y2="200"/>
+      <line x1="240" y1="214" x2="350" y2="230"/>
+      <line x1="240" y1="248" x2="350" y2="260"/>
+      <line x1="240" y1="282" x2="350" y2="290"/>
+    </g>
+
+    <!-- AESTHETIC / nonphysical properties (right side) -->
+    <text x="720" y="100" text-anchor="middle" class="svg-label-gold">NONPHYSICAL PROPERTIES</text>
+    <line x1="640" y1="110" x2="800" y2="110" stroke="#c9a96e" stroke-width="0.5"/>
+
+    <g font-family="Cormorant Garamond" font-size="14" font-style="italic" fill="#e8e4dc">
+      <text x="720" y="146" text-anchor="middle">"witty"</text>
+      <text x="720" y="180" text-anchor="middle">"a bit dark"</text>
+      <text x="720" y="214" text-anchor="middle">"accurate"</text>
+      <text x="720" y="248" text-anchor="middle">"a caricature"</text>
+      <text x="720" y="282" text-anchor="middle">"stylistically effective"</text>
+    </g>
+    <g stroke="#c9a96e" stroke-width="0.6" fill="none" stroke-dasharray="2 3">
+      <line x1="660" y1="146" x2="550" y2="180"/>
+      <line x1="660" y1="180" x2="550" y2="200"/>
+      <line x1="660" y1="214" x2="550" y2="230"/>
+      <line x1="660" y1="248" x2="550" y2="260"/>
+      <line x1="660" y1="282" x2="550" y2="290"/>
+    </g>
+
+    <!-- bottom: mapped to mind/body -->
+    <line x1="80" y1="475" x2="820" y2="475" stroke="#3a3429" stroke-width="0.5"/>
+    <text x="180" y="500" text-anchor="middle" class="svg-text-em">brain ⇄ canvas</text>
+    <text x="450" y="500" text-anchor="middle" class="svg-text">mental properties are <tspan font-style="italic" fill="#c9a96e">grounded in</tspan> the brain</text>
+    <text x="720" y="500" text-anchor="middle" class="svg-text-em">but not <tspan font-style="italic" fill="#c9a96e">reducible</tspan> to it</text>
+  </svg>`,
+  bullets:[
+    "<b>Property dualism:</b> abandons two substances. There is <b>one substance</b> with <b>two kinds of properties</b> — physical and nonphysical.",
+    "<b>Painting analogy:</b> a canvas is just paint and wood, yet has aesthetic properties — <em>witty, dark, accurate</em>. Two kinds of property, one thing.",
+    "On the <b>physicalist</b> version, the mind <em>is</em> the brain. So mind and body interact \"nicely\" — they are the same substance.",
+    "Mental properties are <b>grounded in</b> the physical brain, but <b>not reducible to</b> it. Damaged brain → impaired thought; but a thought is not just a neuron firing.",
+    "<b>The fly in the ointment:</b> aesthetic properties cause nothing — but <em>mens rea</em> (the guilty mind, intent) clearly does cause action. Property dualism cannot account for mental causation."
+  ],
+  hook:{
+    label:"Memory hook",
+    html:"<strong>One canvas, two vocabularies.</strong> The painting <em>is</em> just paint and wood — yet it can be witty. The brain <em>is</em> just neurons — yet it can intend murder. Property dualism gets you out of the pairing problem; but it still can't explain how <em>mens rea</em> moves a hand."
+  }
+});
+
+/* =================== LESSON 7 =================== */
+LESSONS.push({
+  id:7, num:"VII", eyebrow:"Parallelism",
+  title:"<em>Parallelism</em> — correlation, not interaction",
+  caption:"Two synchronized streams that never touch. What looks like cause is just well-timed correlation.",
+  svg:`<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+    <text x="450" y="32" text-anchor="middle" class="svg-label-gold">MIND AND BODY DO NOT INTERACT — THEY <tspan fill="#c9a96e">CORRELATE</tspan></text>
+    <line x1="180" y1="42" x2="720" y2="42" stroke="#5e5236" stroke-width="0.5"/>
+
+    <!-- top track: MIND -->
+    <text x="80" y="106" class="svg-label-gold">MIND</text>
+    <line x1="80" y1="120" x2="820" y2="120" stroke="#c9a96e" stroke-width="1.5"/>
+    <line x1="80" y1="124" x2="820" y2="124" stroke="#c9a96e" stroke-width="0.4"/>
+
+    <!-- mental events on top track -->
+    <g>
+      <circle cx="180" cy="122" r="7" fill="#c9a96e"/>
+      <text x="180" y="98" text-anchor="middle" class="svg-text" font-size="11">desire for coffee</text>
+
+      <circle cx="360" cy="122" r="7" fill="#c9a96e"/>
+      <text x="360" y="98" text-anchor="middle" class="svg-text" font-size="11">"mmm — good"</text>
+
+      <circle cx="540" cy="122" r="7" fill="#c9a96e"/>
+      <text x="540" y="98" text-anchor="middle" class="svg-text" font-size="11">"enough"</text>
+
+      <circle cx="720" cy="122" r="7" fill="#c9a96e"/>
+      <text x="720" y="98" text-anchor="middle" class="svg-text" font-size="11">satisfaction</text>
+    </g>
+
+    <!-- bottom track: BODY -->
+    <text x="80" y="406" class="svg-label-gold">BODY</text>
+    <line x1="80" y1="380" x2="820" y2="380" stroke="#8a7a52" stroke-width="1.5"/>
+    <line x1="80" y1="384" x2="820" y2="384" stroke="#8a7a52" stroke-width="0.4"/>
+
+    <g>
+      <rect x="173" y="375" width="14" height="14" fill="#8a7a52"/>
+      <text x="180" y="416" text-anchor="middle" class="svg-text" font-size="11">hand reaches</text>
+
+      <rect x="353" y="375" width="14" height="14" fill="#8a7a52"/>
+      <text x="360" y="416" text-anchor="middle" class="svg-text" font-size="11">cup tilts to lips</text>
+
+      <rect x="533" y="375" width="14" height="14" fill="#8a7a52"/>
+      <text x="540" y="416" text-anchor="middle" class="svg-text" font-size="11">cup put down</text>
+
+      <rect x="713" y="375" width="14" height="14" fill="#8a7a52"/>
+      <text x="720" y="416" text-anchor="middle" class="svg-text" font-size="11">stomach warm</text>
+    </g>
+
+    <!-- correlation lines (dashed - NOT causal) -->
+    <g stroke="#5e5236" stroke-width="0.8" stroke-dasharray="3 4">
+      <line x1="180" y1="135" x2="180" y2="375"/>
+      <line x1="360" y1="135" x2="360" y2="375"/>
+      <line x1="540" y1="135" x2="540" y2="375"/>
+      <line x1="720" y1="135" x2="720" y2="375"/>
+    </g>
+
+    <!-- middle annotation -->
+    <text x="450" y="225" text-anchor="middle" class="svg-text-em">co-occurring · not causally connected</text>
+    <text x="450" y="248" text-anchor="middle" class="svg-text-em">"two stories that will not mix" — A. J. Ayer</text>
+
+    <!-- middle barrier symbol -->
+    <line x1="120" y1="270" x2="780" y2="270" stroke="#3a3429" stroke-width="0.4" stroke-dasharray="1 6"/>
+    <text x="140" y="290" class="svg-text" font-size="10">no signals cross</text>
+    <text x="660" y="290" class="svg-text" font-size="10" text-anchor="end">no energy transfer</text>
+
+    <!-- bottom: the syllogism -->
+    <line x1="80" y1="450" x2="820" y2="450" stroke="#5e5236" stroke-width="0.4"/>
+    <text x="200" y="480" text-anchor="middle" class="svg-text" font-size="11">(1) mind = nonphysical</text>
+    <text x="450" y="480" text-anchor="middle" class="svg-text" font-size="11">(2) body = physical</text>
+    <text x="700" y="480" text-anchor="middle" class="svg-text" font-size="11">(4) ⊥ cannot interact</text>
+    <text x="450" y="504" text-anchor="middle" class="svg-quote">∴ mind and body do not interact — only <tspan fill="#c9a96e" font-style="italic">correlate</tspan>.</text>
+  </svg>`,
+  bullets:[
+    "<b>Parallelism:</b> mind and body are distinct, but they <b>do not interact</b>. Only correlate.",
+    "Beer drinking is <b>followed by</b> mental fogginess — it does not <em>cause</em> it. The empirical fact is neutral between interaction and correlation.",
+    "<b>A. J. Ayer:</b> the physiologist's story (nerve cells, impulses) and the mental story (sensations, thoughts) are two different plays. Like trying to act <em>Hamlet</em> with Pericles, Prince of Tyre.",
+    "<b>The mistake to avoid:</b> imagining electrical signals \"going off in the mind.\" The mind has no spatial place to receive them.",
+    "Parallelism preserves dualism by sacrificing interaction — and it threatens to make the everyday picture (drinking → fogginess) look like a coincidence."
+  ],
+  hook:{
+    label:"Memory hook",
+    html:"<strong>Two trains on parallel tracks, never touching, always in step.</strong> When the mind whistles, the body's whistle blows at the same instant — but neither pulls the other. Correlation, not causation."
+  }
+});
+
+/* =================== LESSON 8 =================== */
+LESSONS.push({
+  id:8, num:"VIII", eyebrow:"Leibniz · Pre-Established Harmony",
+  title:"Leibniz's <em>two clocks</em>",
+  caption:"Synchronization without contact: two windowless substances, harmonized by God at creation.",
+  svg:`<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="goldFace" cx="0.5" cy="0.5">
+        <stop offset="0" stop-color="#1d1a13"/>
+        <stop offset="1" stop-color="#0f0e0c"/>
+      </radialGradient>
+    </defs>
+
+    <text x="450" y="32" text-anchor="middle" class="svg-label-gold">SYNCHRONIZATION <tspan fill="#c9a96e">IS</tspan> CAUSATION</text>
+    <line x1="240" y1="42" x2="660" y2="42" stroke="#5e5236" stroke-width="0.5"/>
+
+    <!-- LEFT clock: mind -->
+    <g transform="translate(220,230)">
+      <!-- case -->
+      <rect x="-90" y="-110" width="180" height="220" fill="#16140f" stroke="#c9a96e" stroke-width="1.5"/>
+      <rect x="-78" y="-98" width="156" height="100" fill="url(#goldFace)" stroke="#8a7a52" stroke-width="0.8"/>
+      <!-- face -->
+      <circle cx="0" cy="-48" r="44" fill="#0f0e0c" stroke="#c9a96e" stroke-width="1"/>
+      <!-- ticks -->
+      <g stroke="#c9a96e" stroke-width="0.8">
+        <line x1="0" y1="-90" x2="0" y2="-84"/>
+        <line x1="38" y1="-48" x2="32" y2="-48"/>
+        <line x1="0" y1="-6" x2="0" y2="-12"/>
+        <line x1="-38" y1="-48" x2="-32" y2="-48"/>
+      </g>
+      <!-- 12 marker -->
+      <text x="0" y="-78" text-anchor="middle" font-family="Cormorant Garamond" font-size="9" fill="#c9a96e">XII</text>
+      <text x="34" y="-44" text-anchor="middle" font-family="Cormorant Garamond" font-size="9" fill="#c9a96e">III</text>
+      <!-- hands at 3:00 -->
+      <line x1="0" y1="-48" x2="0" y2="-72" stroke="#e8e4dc" stroke-width="1.5"/>
+      <line x1="0" y1="-48" x2="22" y2="-48" stroke="#e8e4dc" stroke-width="2"/>
+      <circle cx="0" cy="-48" r="2.5" fill="#c9a96e"/>
+
+      <!-- pendulum -->
+      <line x1="0" y1="0" x2="-25" y2="80" stroke="#c9a96e" stroke-width="1.2"/>
+      <circle cx="-25" cy="80" r="10" fill="#c9a96e"/>
+      <circle cx="-25" cy="80" r="6" fill="#0f0e0c"/>
+
+      <!-- label -->
+      <text x="0" y="135" text-anchor="middle" class="svg-label-gold" font-size="11">MENTAL PENDULUM</text>
+      <text x="0" y="155" text-anchor="middle" font-family="Cormorant Garamond" font-size="13" font-style="italic" fill="#e8e4dc">windowless</text>
+    </g>
+
+    <!-- RIGHT clock: body -->
+    <g transform="translate(680,230)">
+      <rect x="-90" y="-110" width="180" height="220" fill="#16140f" stroke="#8a7a52" stroke-width="1.5"/>
+      <rect x="-78" y="-98" width="156" height="100" fill="url(#goldFace)" stroke="#5e5236" stroke-width="0.8"/>
+      <circle cx="0" cy="-48" r="44" fill="#0f0e0c" stroke="#8a7a52" stroke-width="1"/>
+      <g stroke="#8a7a52" stroke-width="0.8">
+        <line x1="0" y1="-90" x2="0" y2="-84"/>
+        <line x1="38" y1="-48" x2="32" y2="-48"/>
+        <line x1="0" y1="-6" x2="0" y2="-12"/>
+        <line x1="-38" y1="-48" x2="-32" y2="-48"/>
+      </g>
+      <text x="0" y="-78" text-anchor="middle" font-family="Cormorant Garamond" font-size="9" fill="#8a7a52">XII</text>
+      <text x="34" y="-44" text-anchor="middle" font-family="Cormorant Garamond" font-size="9" fill="#8a7a52">III</text>
+      <!-- hands at 3:00 (synchronized) -->
+      <line x1="0" y1="-48" x2="0" y2="-72" stroke="#e8e4dc" stroke-width="1.5"/>
+      <line x1="0" y1="-48" x2="22" y2="-48" stroke="#e8e4dc" stroke-width="2"/>
+      <circle cx="0" cy="-48" r="2.5" fill="#8a7a52"/>
+
+      <!-- pendulum (same direction, in sync) -->
+      <line x1="0" y1="0" x2="-25" y2="80" stroke="#8a7a52" stroke-width="1.2"/>
+      <circle cx="-25" cy="80" r="10" fill="#8a7a52"/>
+      <circle cx="-25" cy="80" r="6" fill="#0f0e0c"/>
+
+      <text x="0" y="135" text-anchor="middle" class="svg-label-gold" font-size="11">PHYSICAL PENDULUM</text>
+      <text x="0" y="155" text-anchor="middle" font-family="Cormorant Garamond" font-size="13" font-style="italic" fill="#e8e4dc">windowless</text>
+    </g>
+
+    <!-- middle: God's harmony -->
+    <text x="450" y="160" text-anchor="middle" class="svg-text-em">no causal link between them</text>
+    <line x1="350" y1="170" x2="550" y2="170" stroke="#c66b6b" stroke-width="0.8" stroke-dasharray="3 3"/>
+    <text x="450" y="200" text-anchor="middle" font-family="Cormorant Garamond" font-size="22" font-style="italic" fill="#c9a96e">pre-established harmony</text>
+    <text x="450" y="220" text-anchor="middle" class="svg-text-em">— set at creation by God —</text>
+
+    <!-- divine arc connecting both -->
+    <path d="M 220 90 Q 450 -10 680 90" stroke="#c9a96e" stroke-width="0.8" fill="none" stroke-dasharray="4 4" opacity="0.5"/>
+    <text x="450" y="68" text-anchor="middle" class="svg-text-em" font-size="11">"complete individual concepts" — God</text>
+
+    <!-- bottom -->
+    <line x1="80" y1="430" x2="820" y2="430" stroke="#3a3429" stroke-width="0.5"/>
+    <text x="450" y="458" text-anchor="middle" class="svg-quote">When mind strikes "<tspan font-style="italic" fill="#c9a96e">enough coffee</tspan>", body strikes <tspan font-style="italic" fill="#c9a96e">put down cup</tspan> —</text>
+    <text x="450" y="480" text-anchor="middle" class="svg-quote">not because one drove the other, but because both were wound to chime together.</text>
+    <text x="450" y="506" text-anchor="middle" class="svg-text-em" font-size="11">post hoc ergo propter hoc — the fallacy of <tspan fill="#c9a96e">after this, therefore because of this</tspan></text>
+  </svg>`,
+  bullets:[
+    "<b>Leibniz</b> (taught by Huygens, inventor of the pendulum clock): mind and body are like <b>two synchronized clocks</b>, striking together without affecting each other.",
+    "Substances are <b>\"windowless\"</b> — nothing goes in or out. Each contains its own \"complete individual concept\" detailing its whole future.",
+    "Synchronization is <b>set at creation by God</b> — the <b>pre-established harmony</b>. The whole universe is wound to chime together.",
+    "Inferring causation from coincidence in time is the fallacy <b>post hoc ergo propter hoc</b> — \"after this, therefore because of this.\"",
+    "Huygens really did observe two clocks in one case synchronizing — an \"odd kind of sympathy\" — explained in 2002 by tiny case-vibrations. Leibniz extended the metaphor cosmically."
+  ],
+  hook:{
+    label:"Memory hook",
+    html:"<strong>Two clocks, one wind.</strong> Each strikes three at the same moment, but neither pulls on the other — they were just wound by God at the start to keep time together. Coincidence so perfect it <em>looks</em> causal."
+  }
+});
+
+/* =================== LESSON 9 =================== */
+LESSONS.push({
+  id:9, num:"IX", eyebrow:"Occasionalism",
+  title:"<em>Occasionalism</em> — God as continuous mediator",
+  caption:"Geulincx & co.: every mental event is the occasion for God to act on the body, and vice versa.",
+  svg:`<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="divineG" cx="0.5" cy="0.5">
+        <stop offset="0" stop-color="#c9a96e" stop-opacity="0.7"/>
+        <stop offset="0.4" stop-color="#c9a96e" stop-opacity="0.3"/>
+        <stop offset="1" stop-color="#c9a96e" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <text x="450" y="32" text-anchor="middle" class="svg-label-gold">EVERY EVENT IS AN <tspan fill="#c9a96e">OCCASION</tspan> FOR GOD TO ACT</text>
+    <line x1="180" y1="42" x2="720" y2="42" stroke="#5e5236" stroke-width="0.5"/>
+
+    <!-- Divine center -->
+    <circle cx="450" cy="220" r="120" fill="url(#divineG)"/>
+    <circle cx="450" cy="220" r="58" fill="#0f0e0c" stroke="#c9a96e" stroke-width="1.5"/>
+    <circle cx="450" cy="220" r="46" fill="none" stroke="#c9a96e" stroke-width="0.4" stroke-dasharray="2 3"/>
+    <text x="450" y="216" text-anchor="middle" font-family="Cormorant Garamond" font-size="22" font-style="italic" fill="#c9a96e">God</text>
+    <text x="450" y="238" text-anchor="middle" class="svg-text-em" font-size="11">unum motor</text>
+
+    <!-- divine rays -->
+    <g stroke="#c9a96e" stroke-width="0.4" stroke-dasharray="2 4" opacity="0.5">
+      <line x1="450" y1="100" x2="450" y2="60"/>
+      <line x1="370" y1="140" x2="320" y2="100"/>
+      <line x1="530" y1="140" x2="580" y2="100"/>
+      <line x1="450" y1="340" x2="450" y2="380"/>
+    </g>
+
+    <!-- LEFT: mind -->
+    <ellipse cx="170" cy="220" rx="80" ry="50" fill="none" stroke="#c9a96e" stroke-width="1" stroke-dasharray="2 3"/>
+    <text x="170" y="216" text-anchor="middle" font-family="Cormorant Garamond" font-size="22" font-style="italic" fill="#e8e4dc">mind</text>
+    <text x="170" y="240" text-anchor="middle" class="svg-text-em" font-size="11">nonphysical</text>
+
+    <!-- RIGHT: body -->
+    <rect x="660" y="180" width="160" height="80" fill="none" stroke="#8a7a52" stroke-width="1"/>
+    <text x="740" y="216" text-anchor="middle" font-family="Cormorant Garamond" font-size="22" font-style="italic" fill="#e8e4dc">body</text>
+    <text x="740" y="240" text-anchor="middle" class="svg-text-em" font-size="11">physical</text>
+
+    <!-- arrows from God to mind and body -->
+    <g stroke="#c9a96e" stroke-width="1.3" fill="none" marker-end="url(#arrG)">
+      <path d="M 392 220 L 250 220"/>
+      <path d="M 510 220 L 660 220"/>
+    </g>
+    <defs>
+      <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#c9a96e"/>
+      </marker>
+    </defs>
+
+    <!-- "occasion" labels -->
+    <text x="320" y="206" text-anchor="middle" class="svg-text-em" font-size="11">on the occasion of</text>
+    <text x="320" y="222" text-anchor="middle" class="svg-text-em" font-size="11">a mental event,</text>
+    <text x="320" y="238" text-anchor="middle" class="svg-text-em" font-size="11">God moves the body</text>
+
+    <text x="585" y="206" text-anchor="middle" class="svg-text-em" font-size="11">on the occasion of</text>
+    <text x="585" y="222" text-anchor="middle" class="svg-text-em" font-size="11">a bodily event,</text>
+    <text x="585" y="238" text-anchor="middle" class="svg-text-em" font-size="11">God moves the mind</text>
+
+    <!-- Geulincx clocks reference -->
+    <text x="450" y="380" text-anchor="middle" class="svg-text-em">Geulincx (before Leibniz) used the same two-clocks simile</text>
+    <text x="450" y="400" text-anchor="middle" class="svg-text-em">— but God does the wind-up <tspan fill="#c9a96e">at every tick</tspan></text>
+
+    <!-- bottom critique -->
+    <line x1="80" y1="445" x2="820" y2="445" stroke="#3a3429" stroke-width="0.5"/>
+    <text x="450" y="475" text-anchor="middle" class="svg-quote">Leibniz's complaint: this makes for a <tspan fill="#c9a96e" font-style="italic">very hard-working God</tspan></text>
+    <text x="450" y="498" text-anchor="middle" class="svg-text-em" font-size="11">— violates philosophical economy and theological piety —</text>
+  </svg>`,
+  bullets:[
+    "<b>Occasionalism</b> (Geulincx): mind and body do not interact. Every mental event is an <b>occasion</b> for God to bring about the matching bodily event — and vice versa.",
+    "Geulincx used the <b>two-clocks simile before Leibniz</b>. But for occasionalists, God re-syncs them at <em>every</em> tick.",
+    "Driven by religious conviction in God's absolute power: every action in the world has God as its real motive.",
+    "<b>Leibniz's objection:</b> this makes God exhausted — perpetually intervening. It violates <b>philosophical economy</b> and theological simplicity.",
+    "Survives in the period largely because of religious faith. Leibniz's pre-established harmony is the more elegant cousin."
+  ],
+  hook:{
+    label:"Memory hook",
+    html:"<strong>Mind on one side, body on the other, God in the middle — running the switchboard 24/7.</strong> Geulincx's God connects every call. Leibniz's God just sets the perfect schedule once and walks away."
+  }
+});
+
+/* =================== LESSON 10 =================== */
+LESSONS.push({
+  id:10, num:"X", eyebrow:"Physics' Verdict",
+  title:"Conservation laws &amp; <em>causal closure of the physical</em>",
+  caption:"Physics says energy in a closed system is fixed. A nonphysical mind has no admission ticket.",
+  svg:`<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="energyPat" width="14" height="14" patternUnits="userSpaceOnUse">
+        <path d="M 7 0 L 7 14 M 0 7 L 14 7" stroke="#8a7a52" stroke-width="0.4" opacity="0.4"/>
+        <circle cx="7" cy="7" r="1" fill="#c9a96e" opacity="0.5"/>
+      </pattern>
+    </defs>
+
+    <text x="450" y="32" text-anchor="middle" class="svg-label-gold">"THE CAUSAL CLOSURE OF THE PHYSICAL"</text>
+    <line x1="220" y1="42" x2="680" y2="42" stroke="#5e5236" stroke-width="0.5"/>
+
+    <!-- closed box -->
+    <rect x="240" y="100" width="420" height="280" fill="url(#energyPat)" stroke="#c9a96e" stroke-width="2"/>
+    <!-- corner brackets emphasize closure -->
+    <g stroke="#c9a96e" stroke-width="2" fill="none">
+      <path d="M 240 120 L 240 100 L 260 100"/>
+      <path d="M 640 100 L 660 100 L 660 120"/>
+      <path d="M 660 360 L 660 380 L 640 380"/>
+      <path d="M 260 380 L 240 380 L 240 360"/>
+    </g>
+
+    <text x="450" y="130" text-anchor="middle" class="svg-label-gold">CLOSED PHYSICAL SYSTEM</text>
+    <text x="450" y="172" text-anchor="middle" font-family="Cormorant Garamond" font-size="20" font-style="italic" fill="#e8e4dc">the body / brain</text>
+
+    <!-- E = mc^2 inside -->
+    <text x="450" y="218" text-anchor="middle" font-family="Cormorant Garamond" font-size="22" font-style="italic" fill="#c9a96e">E = mc²</text>
+    <text x="450" y="244" text-anchor="middle" class="svg-text">net total of mass &amp; energy stays constant</text>
+    <text x="450" y="266" text-anchor="middle" class="svg-text">no energy enters · no energy leaves</text>
+
+    <!-- inner physical activity -->
+    <g stroke="#8a7a52" stroke-width="0.6" fill="none">
+      <circle cx="320" cy="320" r="6"/><circle cx="350" cy="340" r="4"/><line x1="320" y1="320" x2="350" y2="340"/>
+      <circle cx="380" cy="310" r="5"/><line x1="350" y1="340" x2="380" y2="310"/>
+      <circle cx="540" cy="320" r="6"/><circle cx="570" cy="340" r="4"/><line x1="540" y1="320" x2="570" y2="340"/>
+      <circle cx="510" cy="340" r="4"/><line x1="540" y1="320" x2="510" y2="340"/>
+    </g>
+    <text x="450" y="358" text-anchor="middle" class="svg-text-em" font-size="11">— neural activity, fully self-contained —</text>
+
+    <!-- mind outside, blocked -->
+    <g transform="translate(110,220)">
+      <ellipse cx="0" cy="0" rx="70" ry="50" fill="#c9a96e" fill-opacity="0.1" stroke="#c9a96e" stroke-width="1" stroke-dasharray="2 3"/>
+      <text x="0" y="-2" text-anchor="middle" font-family="Cormorant Garamond" font-size="20" font-style="italic" fill="#e8e4dc">mind</text>
+      <text x="0" y="20" text-anchor="middle" class="svg-text-em" font-size="11">nonphysical</text>
+    </g>
+    <!-- arrow trying to enter -->
+    <path d="M 185 220 L 230 220" stroke="#c9a96e" stroke-width="1.2" fill="none"/>
+    <path d="M 240 215 L 232 220 L 240 225" stroke="#c66b6b" stroke-width="1.5" fill="none"/>
+    <text x="207" y="208" text-anchor="middle" class="svg-text-em" style="fill:#c66b6b" font-size="10">×</text>
+
+    <!-- annotation outside -->
+    <text x="110" y="290" text-anchor="middle" class="svg-text" font-size="11">cannot inject</text>
+    <text x="110" y="305" text-anchor="middle" class="svg-text" font-size="11">physical energy</text>
+
+    <!-- bottom: the dilemma -->
+    <line x1="80" y1="420" x2="820" y2="420" stroke="#3a3429" stroke-width="0.5"/>
+    <text x="450" y="446" text-anchor="middle" class="svg-label-gold">THE DILEMMA · Lepore &amp; Loewer</text>
+    <text x="100" y="478" class="svg-text" font-size="12">(5) mind &amp; body are <tspan fill="#c9a96e">distinct</tspan></text>
+    <text x="350" y="478" class="svg-text" font-size="12">(3b) the mental &amp; physical <tspan fill="#c9a96e">causally interact</tspan></text>
+    <text x="640" y="478" class="svg-text" font-size="12">(4b) the physical is <tspan fill="#c9a96e">causally closed</tspan></text>
+    <text x="450" y="504" text-anchor="middle" class="svg-text-em">— you can hold any two; the third must go —</text>
+  </svg>`,
+  bullets:[
+    "<b>Conservation of mass and energy:</b> in a closed system, the net total stays the same. The system gains or loses nothing.",
+    "<b>Causal closure of the physical:</b> if you want to change something physical, the energy must come from <em>within</em> the physical. No outside, nonphysical \"push\" allowed.",
+    "If the mind is nonphysical, it has no <b>physical energy to expend</b>. So it cannot causally affect the body without violating physics.",
+    "<b>Lepore &amp; Loewer's three propositions:</b> (5) mind ≠ body, (3b) they interact, (4b) the physical is closed. <b>You cannot keep all three.</b>",
+    "<b>The lesson:</b> be a <b>physicalist</b> (deny 5) or a <b>parallelist</b> (deny 3b) — <b>but not an interactionist dualist</b>. (4b is sacred to physics.)"
+  ],
+  hook:{
+    label:"Memory hook",
+    html:"<strong>The body is a sealed jar of energy.</strong> Open the lid for the mind to push, and physics screams. Keep it shut, and dualist interaction is impossible. So: pick parallelism, or pick physicalism. <em>Don't</em> pick interactionism."
+  }
+});
+
+/* =================== LESSON 11 =================== */
+LESSONS.push({
+  id:11, num:"XI", eyebrow:"Epiphenomenalism",
+  title:"<em>Epiphenomenalism</em> — the steam-whistle view",
+  caption:"Huxley: consciousness rides on top of the body's mechanism, but cannot drive it.",
+  svg:`<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="trainBody" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#5e5236"/>
+        <stop offset="1" stop-color="#3a3429"/>
+      </linearGradient>
+    </defs>
+
+    <text x="450" y="32" text-anchor="middle" class="svg-label-gold">PHYSICAL → MENTAL · BUT NOT THE OTHER WAY</text>
+    <line x1="200" y1="42" x2="700" y2="42" stroke="#5e5236" stroke-width="0.5"/>
+
+    <!-- LEFT: locomotive -->
+    <g transform="translate(80,140)">
+      <text x="200" y="-12" text-anchor="middle" class="svg-label-gold" font-size="11">HUXLEY'S LOCOMOTIVE</text>
+
+      <!-- track -->
+      <line x1="0" y1="180" x2="420" y2="180" stroke="#8a7a52" stroke-width="2"/>
+      <g stroke="#5e5236" stroke-width="0.6">
+        <line x1="20" y1="180" x2="20" y2="190"/>
+        <line x1="60" y1="180" x2="60" y2="190"/>
+        <line x1="100" y1="180" x2="100" y2="190"/>
+        <line x1="140" y1="180" x2="140" y2="190"/>
+        <line x1="180" y1="180" x2="180" y2="190"/>
+        <line x1="220" y1="180" x2="220" y2="190"/>
+        <line x1="260" y1="180" x2="260" y2="190"/>
+        <line x1="300" y1="180" x2="300" y2="190"/>
+        <line x1="340" y1="180" x2="340" y2="190"/>
+        <line x1="380" y1="180" x2="380" y2="190"/>
+      </g>
+
+      <!-- locomotive body -->
+      <rect x="60" y="100" width="220" height="70" fill="url(#trainBody)" stroke="#c9a96e" stroke-width="1.2"/>
+      <!-- cab -->
+      <rect x="240" y="78" width="80" height="92" fill="url(#trainBody)" stroke="#c9a96e" stroke-width="1.2"/>
+      <rect x="252" y="92" width="56" height="40" fill="#0f0e0c" stroke="#8a7a52" stroke-width="0.6"/>
+      <!-- boiler front -->
+      <circle cx="100" cy="135" r="22" fill="#0f0e0c" stroke="#c9a96e" stroke-width="1"/>
+      <!-- chimney -->
+      <rect x="125" y="65" width="20" height="40" fill="url(#trainBody)" stroke="#c9a96e" stroke-width="0.8"/>
+      <!-- wheels -->
+      <circle cx="100" cy="180" r="20" fill="#0f0e0c" stroke="#c9a96e" stroke-width="1.2"/>
+      <circle cx="100" cy="180" r="6" fill="#c9a96e"/>
+      <circle cx="170" cy="180" r="14" fill="#0f0e0c" stroke="#c9a96e" stroke-width="1.2"/>
+      <circle cx="220" cy="180" r="14" fill="#0f0e0c" stroke="#c9a96e" stroke-width="1.2"/>
+      <circle cx="270" cy="180" r="20" fill="#0f0e0c" stroke="#c9a96e" stroke-width="1.2"/>
+      <circle cx="270" cy="180" r="6" fill="#c9a96e"/>
+
+      <!-- steam whistle -->
+      <rect x="180" y="62" width="10" height="40" fill="#c9a96e"/>
+      <circle cx="185" cy="60" r="6" fill="#c9a96e"/>
+
+      <!-- steam puffs -->
+      <g fill="#c9a96e" opacity="0.6">
+        <circle cx="200" cy="44" r="6"/>
+        <circle cx="216" cy="34" r="8"/>
+        <circle cx="234" cy="22" r="10"/>
+        <circle cx="252" cy="14" r="11"/>
+      </g>
+      <text x="285" y="22" class="svg-text-em" font-size="11">whistle blows</text>
+      <text x="285" y="38" class="svg-text-em" font-size="11">— but does</text>
+      <text x="285" y="54" class="svg-text-em" font-size="11">nothing —</text>
+
+      <!-- labels -->
+      <text x="200" y="218" text-anchor="middle" class="svg-text">mechanism = body</text>
+      <text x="200" y="236" text-anchor="middle" class="svg-text-em" font-size="11">whistle = consciousness ("collateral product")</text>
+    </g>
+
+    <!-- divider -->
+    <line x1="540" y1="80" x2="540" y2="380" stroke="#3a3429" stroke-width="0.6" stroke-dasharray="2 4"/>
+
+    <!-- RIGHT: shadow analogy -->
+    <g transform="translate(560,140)">
+      <text x="160" y="-12" text-anchor="middle" class="svg-label-gold" font-size="11">THE SHADOW ANALOGY</text>
+
+      <!-- wall -->
+      <rect x="0" y="60" width="320" height="180" fill="none" stroke="#5e5236" stroke-width="0.6" stroke-dasharray="3 3"/>
+      <text x="20" y="50" class="svg-text-em" font-size="11">wall</text>
+
+      <!-- hand silhouette making eagle -->
+      <g transform="translate(60,140)">
+        <!-- thumb base -->
+        <ellipse cx="20" cy="30" rx="22" ry="14" fill="#8a7a52"/>
+        <!-- index finger -->
+        <path d="M 30 22 Q 60 10 80 0 L 78 16 Q 58 22 35 32 Z" fill="#8a7a52"/>
+        <!-- thumb -->
+        <path d="M 10 18 Q 0 5 -8 -5 L -2 18 Q 5 28 14 28 Z" fill="#8a7a52"/>
+        <text x="30" y="60" class="svg-text-em" font-size="10">hand</text>
+      </g>
+
+      <!-- shadow eagle on wall (right side) -->
+      <g transform="translate(180,120)" fill="#c9a96e" opacity="0.4">
+        <ellipse cx="20" cy="40" rx="30" ry="18"/>
+        <path d="M 38 38 L 80 28 L 78 36 L 50 44 Z"/>
+        <path d="M 0 40 L -16 32 L -10 42 Z"/>
+        <circle cx="44" cy="36" r="2" fill="#0f0e0c"/>
+      </g>
+      <text x="220" y="180" text-anchor="middle" class="svg-text-em" font-size="11">shadow on wall</text>
+
+      <!-- arrow hand → shadow -->
+      <path d="M 145 160 L 170 145" stroke="#c9a96e" stroke-width="1" fill="none" marker-end="url(#arrEpi)"/>
+      <defs>
+        <marker id="arrEpi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#c9a96e"/>
+        </marker>
+      </defs>
+
+      <!-- attempted reverse arrow, blocked -->
+      <path d="M 175 165 L 152 175" stroke="#c66b6b" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
+      <text x="160" y="190" class="svg-text-em" style="fill:#c66b6b" font-size="10">×</text>
+
+      <text x="160" y="218" text-anchor="middle" class="svg-text">shadow can't move the hand</text>
+      <text x="160" y="236" text-anchor="middle" class="svg-text-em" font-size="11">— mind cannot move the body —</text>
+    </g>
+
+    <!-- bottom critique -->
+    <line x1="80" y1="430" x2="820" y2="430" stroke="#3a3429" stroke-width="0.5"/>
+    <text x="450" y="458" text-anchor="middle" class="svg-quote">Westphal's reply: a steam-whistle <tspan fill="#c9a96e">can</tspan> be rigged to brake a train —</text>
+    <text x="450" y="480" text-anchor="middle" class="svg-quote">so why is the mind ruled out from causal effect?</text>
+    <text x="450" y="506" text-anchor="middle" class="svg-text-em" font-size="11">— Stephen Law: "the curse of epiphenomenalism" —</text>
+  </svg>`,
+  bullets:[
+    "<b>Epiphenomenalism:</b> physical events cause mental events, <b>but mental events do not cause physical ones</b>. \"Epi-\" = \"in addition to.\"",
+    "<b>T. H. Huxley</b> (Victorian biologist): consciousness is a \"collateral product\" of the body's mechanism, like a <b>steam-whistle on a locomotive</b> — riding along but not driving.",
+    "<b>Shadow analogy:</b> hands cast a shadow eagle on the wall. The eagle can't move the hands. The mind, on this view, is just a shadow.",
+    "<b>Westphal's reply:</b> we can rig a whistle to a brake — physically the loop is allowed. So why is the mind <em>causally inert</em>? Huxley does not say.",
+    "Cuts the mind–body problem in half but the remaining half is still intractable: <b>how does body cause mind, if mind is nonphysical?</b> Stephen Law: \"the curse of epiphenomenalism.\""
+  ],
+  hook:{
+    label:"Memory hook",
+    html:"<strong>The whistle blows because the engine runs — never the reverse.</strong> Or: the eagle on the wall is just a shadow. Mind exists, but only as the by-product of brain — it can never reach back and steer."
+  }
+});
+
+/* =================== LESSON 12 =================== */
+LESSONS.push({
+  id:12, num:"XII", eyebrow:"Emergentism &amp; Supervenience",
+  title:"<em>Emergence</em> &amp; <em>supervenience</em>",
+  caption:"Pain emerges from C-fibers — but is it a new thing, or just the fibers in disguise?",
+  svg:`<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="butterflyG" cx="0.5" cy="0.5">
+        <stop offset="0" stop-color="#c9a96e" stop-opacity="0.6"/>
+        <stop offset="1" stop-color="#c9a96e" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <!-- LEFT: emergence (chrysalis → butterfly) -->
+    <text x="225" y="32" text-anchor="middle" class="svg-label-gold">EMERGENCE</text>
+    <line x1="100" y1="42" x2="350" y2="42" stroke="#5e5236" stroke-width="0.5"/>
+
+    <!-- chrysalis (matter) -->
+    <g transform="translate(225,330)">
+      <ellipse cx="0" cy="0" rx="40" ry="62" fill="#3a3429" stroke="#8a7a52" stroke-width="1.2"/>
+      <line x1="-30" y1="-40" x2="30" y2="40" stroke="#8a7a52" stroke-width="0.5"/>
+      <line x1="-30" y1="-20" x2="30" y2="60" stroke="#8a7a52" stroke-width="0.5"/>
+      <line x1="-30" y1="0" x2="30" y2="80" stroke="#8a7a52" stroke-width="0.5" opacity="0.5"/>
+      <text x="0" y="84" text-anchor="middle" class="svg-text-em" font-size="11">brain · C-fibers</text>
+      <text x="0" y="100" text-anchor="middle" class="svg-text-em" font-size="11">matter</text>
+    </g>
+
+    <!-- butterfly emerging (mind) -->
+    <ellipse cx="225" cy="170" rx="100" ry="60" fill="url(#butterflyG)"/>
+    <g transform="translate(225,170)">
+      <!-- body -->
+      <ellipse cx="0" cy="0" rx="3" ry="22" fill="#c9a96e"/>
+      <!-- wings -->
+      <path d="M -3 -10 Q -50 -28 -56 -2 Q -50 14 -3 6 Z" fill="#c9a96e" opacity="0.7"/>
+      <path d="M 3 -10 Q 50 -28 56 -2 Q 50 14 3 6 Z" fill="#c9a96e" opacity="0.7"/>
+      <path d="M -3 4 Q -32 16 -36 30 Q -28 38 -3 16 Z" fill="#c9a96e" opacity="0.5"/>
+      <path d="M 3 4 Q 32 16 36 30 Q 28 38 3 16 Z" fill="#c9a96e" opacity="0.5"/>
+      <!-- antennae -->
+      <path d="M -1 -22 Q -4 -34 -10 -38" stroke="#c9a96e" stroke-width="0.8" fill="none"/>
+      <path d="M 1 -22 Q 4 -34 10 -38" stroke="#c9a96e" stroke-width="0.8" fill="none"/>
+    </g>
+    <text x="225" y="100" text-anchor="middle" font-family="Cormorant Garamond" font-size="18" font-style="italic" fill="#e8e4dc">mind · pain</text>
+
+    <!-- emergence arrow -->
+    <line x1="225" y1="266" x2="225" y2="226" stroke="#c9a96e" stroke-width="1" stroke-dasharray="2 3"/>
+    <text x="245" y="252" class="svg-text-em" font-size="11">"emerges"</text>
+
+    <!-- the dilemma below -->
+    <text x="225" y="408" text-anchor="middle" class="svg-text-em" font-size="11">why does <tspan fill="#c9a96e" font-style="italic">pain</tspan> emerge from C-fibers</text>
+    <text x="225" y="424" text-anchor="middle" class="svg-text-em" font-size="11">— and not something else entirely?</text>
+    <text x="225" y="442" text-anchor="middle" class="svg-text" font-size="11">"it just emerges" — comes the answer</text>
+
+    <!-- divider -->
+    <line x1="450" y1="60" x2="450" y2="460" stroke="#3a3429" stroke-width="0.6" stroke-dasharray="2 4"/>
+
+    <!-- RIGHT: supervenience -->
+    <text x="675" y="32" text-anchor="middle" class="svg-label-gold">SUPERVENIENCE</text>
+    <line x1="540" y1="42" x2="820" y2="42" stroke="#5e5236" stroke-width="0.5"/>
+
+    <!-- two layers stacked -->
+    <!-- top layer: A (mental) -->
+    <rect x="540" y="100" width="270" height="100" fill="none" stroke="#c9a96e" stroke-width="1.2"/>
+    <text x="675" y="130" text-anchor="middle" font-family="Cormorant Garamond" font-size="20" font-style="italic" fill="#e8e4dc">A · mental</text>
+    <text x="675" y="158" text-anchor="middle" class="svg-text" font-size="11">aesthetic, mental, "high-level"</text>
+    <text x="675" y="178" text-anchor="middle" class="svg-text" font-size="11">witty · in pain · believing X</text>
+
+    <!-- bottom layer: B (physical/base) -->
+    <rect x="540" y="240" width="270" height="100" fill="#1d1a13" stroke="#8a7a52" stroke-width="1.2"/>
+    <text x="675" y="270" text-anchor="middle" font-family="Cormorant Garamond" font-size="20" font-style="italic" fill="#e8e4dc">B · physical base</text>
+    <text x="675" y="298" text-anchor="middle" class="svg-text" font-size="11">paint &amp; canvas · neurons &amp; firings</text>
+    <text x="675" y="318" text-anchor="middle" class="svg-text" font-size="11">low-level matter</text>
+
+    <!-- arrows from B to A (dependence) -->
+    <g stroke="#c9a96e" stroke-width="0.8" fill="none">
+      <path d="M 580 240 L 580 200" marker-end="url(#supA)"/>
+      <path d="M 675 240 L 675 200" marker-end="url(#supA)"/>
+      <path d="M 770 240 L 770 200" marker-end="url(#supA)"/>
+    </g>
+    <defs>
+      <marker id="supA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#c9a96e"/>
+      </marker>
+    </defs>
+
+    <text x="675" y="226" text-anchor="middle" class="svg-text-em" font-size="11">A supervenes on B</text>
+
+    <!-- definition -->
+    <text x="675" y="380" text-anchor="middle" class="svg-text">no change in <tspan fill="#c9a96e" font-style="italic">A</tspan> without a change in <tspan fill="#c9a96e" font-style="italic">B</tspan></text>
+    <text x="675" y="404" text-anchor="middle" class="svg-text-em" font-size="11">aesthetic shifts ⇒ paint must have moved</text>
+    <text x="675" y="424" text-anchor="middle" class="svg-text-em" font-size="11">pain shifts ⇒ neurons must have changed</text>
+
+    <!-- bottom -->
+    <line x1="80" y1="465" x2="820" y2="465" stroke="#3a3429" stroke-width="0.5"/>
+    <text x="450" y="494" text-anchor="middle" class="svg-quote">But: if mind is "creature of forces from below" — how can it <tspan fill="#c9a96e">attain causal power</tspan>?</text>
+  </svg>`,
+  bullets:[
+    "<b>Emergentism:</b> the mental \"emerges\" from physical structures (e.g. <b>pain emerges from Aδ &amp; C fibers</b> — Aδ for sharp, C for dull/burning).",
+    "<b>The dilemma:</b> if mind is genuinely new and nonphysical, how does it interact? If it's nothing but its physical base, it's not new at all.",
+    "<b>Supervenience:</b> property A supervenes on B if there can be no change in A without a change in B. Aesthetic properties supervene on paint; mental on neurons.",
+    "Supervenience clarifies <em>dependence</em> — but does not deliver mental causation. The mind remains a creature of forces from below.",
+    "<b>Westphal's verdict:</b> emergentism is unclear and unpopular. Either it's a new mental thing (and we still have the interaction problem) or it isn't (and it has no causal power)."
+  ],
+  hook:{
+    label:"Memory hook",
+    html:"<strong>A butterfly out of the chrysalis of matter — but can it lift its own wings?</strong> Emergence promises something new; supervenience says \"no change up top without change below.\" Together they describe dependence — but they cannot deliver real <em>mental causation</em>."
+  }
+});
+
+/* ============================================================
+   FLASHCARDS
+============================================================ */
+
+FLASHCARDS.push(
+  {id:"f1", topic:"Foundations", q:"What is <em>dualism</em>?", a:"The <b>antinaturalist</b> claim that mind and body are <b>two separate and very different things</b> — one nonphysical, one physical. The mind is <em>not</em> part of nature."},
+  {id:"f2", topic:"Foundations", q:"State proposition (1) of the four-proposition tetrad.", a:"<b>The mind is a nonphysical thing.</b>"},
+  {id:"f3", topic:"Foundations", q:"State proposition (2) of the tetrad.", a:"<b>The body is a physical thing.</b>"},
+  {id:"f4", topic:"Foundations", q:"State proposition (3) of the tetrad.", a:"<b>Mind and body interact.</b>"},
+  {id:"f5", topic:"Foundations", q:"State proposition (4) of the tetrad.", a:"<b>Physical and nonphysical things cannot interact.</b> (The four propositions cannot all be true together — that's the mind–body problem.)"},
+  {id:"f6", topic:"Foundations", q:"What is a <em>substance</em> in early modern philosophy?", a:"An <b>individual thing that can exist by itself</b>, independently of other substances."},
+
+  {id:"f7", topic:"Substance Dualism", q:"What is <em>substance dualism</em>?", a:"The view that mind and body are <b>distinct substances</b> — they can exist independently of each other."},
+  {id:"f8", topic:"Substance Dualism", q:"What is <em>interactionist substance dualism</em>?", a:"The view that mind and body are two distinct substances <b>and</b> that they <b>interact causally</b> (e.g. beer fogs the mind; intent moves the arm)."},
+  {id:"f9", topic:"Substance Dualism", q:"Westphal's disappearing-body thought experiment — what is its point?", a:"You can <b>describe waking up bodiless without contradiction</b> (coffee, flat covers, mind intact). If the description is contradiction-free, the situation is possible — so mind and body must be <b>distinct</b>."},
+  {id:"f10", topic:"Substance Dualism", q:"What is the <em>proper test of possibility</em>?", a:"<b>Freedom from contradiction</b>, not imaginability. Imagining may indicate describability, but only contradiction-free description <b>demonstrates</b> possibility (the lottery example)."},
+  {id:"f11", topic:"Substance Dualism", q:"What is the classical objection to interactionism — and who raised it?", a:"<b>How can a nonphysical, nonspatial mind interact with a physical, spatial body?</b> Raised by <b>Princess Elisabeth</b> (of Bohemia) and <b>Gassendi</b> against Descartes."},
+  {id:"f12", topic:"Substance Dualism", q:"What is E. J. Lowe's contemporary attempt at interactionism?", a:"He pictures the brain's causal chains as a <b>branching tree with no tips</b>. The mind communicates with the <b>whole tree</b>, not the tips. Westphal's reply: the same interaction problem returns — how does the mind activate the whole tree?"},
+  {id:"f13", topic:"Substance Dualism", q:"What is the <em>pairing problem</em>?", a:"If mind and body are genuinely distinct, <b>why is my mind paired with my brain and not yours</b>? Why does <em>my</em> arm rise when <em>I</em> wish, and not yours — or both, like a radio broadcast?"},
+
+  {id:"f14", topic:"Property Dualism", q:"What is <em>property dualism</em>?", a:"There is only <b>one substance</b>, but it has <b>two sorts of properties</b>: physical and nonphysical (mental). The physicalist version says the mind is physical (the relevant brain part) but has nonphysical properties."},
+  {id:"f15", topic:"Property Dualism", q:"How does the painting analogy illustrate property dualism?", a:"A painting is one physical object — paint, wood, canvas — but it has <b>nonphysical aesthetic properties</b>: witty, accurate, a bit dark. One substance, two property kinds."},
+  {id:"f16", topic:"Property Dualism", q:"How does property dualism solve the pairing problem?", a:"Since the mind <em>is</em> the relevant part of the brain (one substance), there's no question of which body it pairs with. The brain in <em>my</em> body just <em>is</em> my mind."},
+  {id:"f17", topic:"Property Dualism", q:"What is Westphal's main objection to property dualism?", a:"<b><em>Mens rea</em></b> — the \"guilty mind.\" Mental properties (intent, premeditation) <b>do</b> initiate physical effects, unlike aesthetic properties of a painting. The physicalist property dualist cannot account for genuine mental causation."},
+
+  {id:"f18", topic:"Parallelism", q:"What is <em>parallelism</em>?", a:"Mind and body are <b>distinct</b> but do <b>not interact</b>. They merely <b>correlate</b> — like two clocks striking together. Causal interaction <em>is</em> synchronization."},
+  {id:"f19", topic:"Parallelism", q:"Who is the most celebrated parallelist?", a:"<b>Leibniz.</b> His teacher <b>Huygens</b> (inventor of the pendulum clock) had observed an \"odd kind of sympathy\" between two clocks in one case — synchronization without literal interaction."},
+  {id:"f20", topic:"Parallelism", q:"What did Huygens observe and what was the eventual explanation?", a:"Two pendulum clocks in one case ended up <b>antisynchronized</b> regardless of starting points. A 2002 Georgia Tech team showed it was caused by <b>small vibrations through the case</b>."},
+  {id:"f21", topic:"Parallelism", q:"What does Leibniz mean when he calls substances <em>\"windowless\"</em>?", a:"Nothing can go into or out of a substance — like an indivisible atom. Mind and body don't influence each other. Their synchronization comes from <b>God's pre-established harmony</b> via each substance's \"complete individual concept.\""},
+  {id:"f22", topic:"Parallelism", q:"What is <em>occasionalism</em> and how does it differ from Leibniz?", a:"Occasionalists (e.g. <b>Geulincx</b>, who used the two-clocks simile <em>before</em> Leibniz) held that physical events are merely the <b>occasion</b> for God to act in the mind, and vice versa. Leibniz's complaint: this requires a <b>very hard-working God</b>."},
+  {id:"f23", topic:"Parallelism", q:"What is the <em>post hoc ergo propter hoc</em> fallacy?", a:"Latin: <em>\"after this, therefore because of this.\"</em> The error of inferring causation from mere temporal succession — exactly what the parallelist accuses interactionists of doing."},
+  {id:"f24", topic:"Parallelism", q:"What does A. J. Ayer's <em>Hamlet vs. Pericles</em> remark illustrate?", a:"The two stories — physical and mental — <b>will not mix</b>. The physiologist's story (nerves, impulses) is complete in itself; there is no temporal gap for mental characters to enter. They merely correlate."},
+
+  {id:"f25", topic:"Conservation", q:"What is the <em>causal closure of the physical</em>?", a:"The physical world is a <b>closed system</b>: outside (nonphysical) causes cannot inject energy or mass into it, and it cannot leak energy to outside systems. Backed by the conservation of mass and energy."},
+  {id:"f26", topic:"Conservation", q:"State Lepore &amp; Loewer's three propositions.", a:"(5) <b>Mind and body are distinct.</b> (3b) <b>The mental and the physical causally interact.</b> (4b) <b>The physical is causally closed.</b> All three cannot be true together — one must be dropped."},
+  {id:"f27", topic:"Conservation", q:"Westphal's lesson from the conservation argument?", a:"<b>Be either a parallelist or a physicalist — but NOT an interactionist.</b> The physicalist denies (5); the parallelist denies (3b); denying (4b) is not a real option given physics."},
+
+  {id:"f28", topic:"Epiphenomenalism", q:"What is <em>epiphenomenalism</em>?", a:"The view that <b>physical events cause mental events, but mental events do not cause physical events</b>. The mind is a one-way side-effect of the brain."},
+  {id:"f29", topic:"Epiphenomenalism", q:"What does the prefix <em>epi-</em> mean?", a:"Greek for <b>\"on the occasion of\"</b> or <b>\"in addition to.\"</b> Epi-phenomena are extras that appear on top of the basic (physical) phenomena."},
+  {id:"f30", topic:"Epiphenomenalism", q:"What is Huxley's locomotive analogy?", a:"Consciousness is a <b>\"collateral product\" of the body's mechanism</b>, as causally inert as <b>the steam-whistle</b> that accompanies a locomotive's work. Volition merely <em>indicates</em> physical changes; it does not cause them."},
+  {id:"f31", topic:"Epiphenomenalism", q:"Westphal's reply to Huxley's steam-whistle?", a:"You <em>can</em> rig a steam-whistle to brake the train (the steam drives a fan, the fan trips a circuit). Nothing in the <b>physical</b> world rules out the causal loop — so why should the mind be uniquely barred from acting back?"},
+  {id:"f32", topic:"Epiphenomenalism", q:"What is Stephen Law's phrase for the difficulty here?", a:"<b>\"The curse of epiphenomenalism.\"</b> Even cutting the problem in half (only one direction of interaction) leaves the body→mind direction every bit as intractable."},
+
+  {id:"f33", topic:"Emergentism", q:"What is <em>emergentism</em>?", a:"The mental <b>emerges</b> from the physical — like a butterfly from the chrysalis of matter. Pain emerges from <b>Aδ</b> and <b>C fiber</b> stimulation."},
+  {id:"f34", topic:"Emergentism", q:"What's the difference between Aδ and C fibers?", a:"<b>Aδ fibers</b> → <em>sharp, acute</em> pain. <b>C fibers</b> → <em>dull or burning</em> pain. Why <em>pain</em> specifically emerges from these — and not something else — is for the emergentist a mystery with no answer."},
+  {id:"f35", topic:"Emergentism", q:"Westphal's dilemma for emergentism.", a:"If mind is <b>genuinely new</b> and nonphysical, how can it interact with the body? If it's <b>not genuinely new</b>, it's just the physical base — and not emergent at all."},
+  {id:"f36", topic:"Emergentism", q:"What is <em>supervenience</em>?", a:"Property A supervenes on property B if there can be <b>no change in A without a change in B</b>. Aesthetic properties supervene on paint; mental properties on neurons. It captures dependence but not mental causation."},
+  {id:"f37", topic:"Emergentism", q:"Why does emergentism fail to deliver mental causation?", a:"It is really a form of <b>physicalism</b>. The mind is the <b>creature of the forces from below</b> on which it supervenes — so it cannot truly act back. \"Mind interacts with body\" remains unexplained."}
+);
+
+/* ============================================================
+   MCQ
+============================================================ */
+
+QUESTIONS.push(
+  {id:"q1",
+    q:"According to Westphal, what is the <em>essence</em> of dualism?",
+    options:[
+      "The claim that the mind controls the body",
+      "The claim that the mind is a nonphysical thing AND the body is a physical thing — and the mind is not part of nature",
+      "The claim that consciousness emerges from neural activity",
+      "The claim that everything is ultimately mental"
+    ],
+    correct:1,
+    explanation:"Dualism is the conjunction of <b>(1) the mind is nonphysical</b> and <b>(2) the body is physical</b>, plus the antinaturalist commitment that the mind is not part of nature."},
+
+  {id:"q2",
+    q:"A <em>substance</em>, in this tradition, is best defined as:",
+    options:[
+      "A physical material that fills space",
+      "A property held by an object",
+      "An individual thing that can exist by itself, independently of other substances",
+      "A category of mental events"
+    ],
+    correct:2,
+    explanation:"A substance is an <b>individual thing that can exist independently</b>. That is why <em>substance dualism</em> is the strong claim that mind and body can each exist on its own."},
+
+  {id:"q3",
+    q:"In Westphal's bedroom thought experiment (waking up with no body), what does it ultimately demonstrate?",
+    options:[
+      "That the mind always survives death",
+      "That dreams are indistinguishable from reality",
+      "That a contradiction-free description of mind without body shows it is possible — and so they must be distinct",
+      "That the body is an illusion"
+    ],
+    correct:2,
+    explanation:"The point is the <b>proper test of possibility</b>: if a story can be told without contradiction, the situation is possible. That suffices for distinctness."},
+
+  {id:"q4",
+    q:"Princess Elisabeth and Gassendi's classic objection to interactionist substance dualism is:",
+    options:[
+      "That the mind is just the brain",
+      "That a nonphysical, nonspatial mind cannot interact with a physical, spatial body",
+      "That God must mediate every interaction",
+      "That mental events have no real existence"
+    ],
+    correct:1,
+    explanation:"Their objection — which stumped Descartes — is the <b>interaction problem</b>: how can something with no spatial location push something that has one?"},
+
+  {id:"q5",
+    q:"E. J. Lowe's branching-tree picture is criticised by Westphal because:",
+    options:[
+      "Trees do not exist in the brain",
+      "Even if the mind acts on the whole tree rather than its tips, the same interaction problem returns",
+      "Lowe denies the existence of mental events",
+      "Lowe collapses into property dualism"
+    ],
+    correct:1,
+    explanation:"Westphal's point: <b>if interacting with the tips is impossible, so is interacting with the whole tree.</b> The mediation is still a causal relationship needing explanation."},
+
+  {id:"q6",
+    q:"The <em>pairing problem</em> is best summarised as:",
+    options:[
+      "Why mental events are paired with neural events in time",
+      "Why mind and body must always be of the same type",
+      "If mind and body are genuinely distinct, why is my mind paired with my brain and not someone else's?",
+      "Why two minds cannot share one body"
+    ],
+    correct:2,
+    explanation:"If minds are non-spatial, there's nothing to anchor <b>which</b> body a given mind acts upon — so why doesn't my wish raise your arm, or both?"},
+
+  {id:"q7",
+    q:"In property dualism, the painting analogy is meant to show that:",
+    options:[
+      "Aesthetic properties don't really exist",
+      "One substance can have two sorts of properties — physical and nonphysical",
+      "The mind is a kind of artwork",
+      "Properties are themselves substances"
+    ],
+    correct:1,
+    explanation:"The painting is <b>one physical object</b> with both physical (paint, canvas) and nonphysical (witty, dark, accurate) properties — modelling one substance with two property kinds."},
+
+  {id:"q8",
+    q:"What is Westphal's key objection to physicalist property dualism?",
+    options:[
+      "It denies the existence of brains",
+      "It cannot explain mens rea — mental properties (like intent) actually do cause physical events",
+      "It contradicts physics",
+      "It collapses into substance dualism"
+    ],
+    correct:1,
+    explanation:"<b><em>Mens rea</em></b> — the \"guilty mind\" — is a mental property that <b>initiates</b> action (e.g. murder). Property dualism's claim that mental properties cause nothing breaks down here."},
+
+  {id:"q9",
+    q:"Parallelism is the view that mind and body:",
+    options:[
+      "Are identical",
+      "Are distinct, do not interact, but are correlated",
+      "Interact only at moments of will",
+      "Both reduce to physical processes"
+    ],
+    correct:1,
+    explanation:"Parallelism keeps dualism but denies (3): mind and body run in <b>parallel and correlate</b>; they do not literally interact."},
+
+  {id:"q10",
+    q:"Leibniz's claim that substances are <em>\"windowless\"</em> means:",
+    options:[
+      "Nothing can go into or out of an individual substance — synchronization comes from God's pre-established harmony",
+      "Substances cannot be perceived",
+      "Substances exist only in the mind",
+      "Substances lack any properties"
+    ],
+    correct:0,
+    explanation:"For Leibniz, each substance is like an indivisible atom with no \"windows\" for influence. Synchronization is built in by God from each substance's <b>complete individual concept</b>."},
+
+  {id:"q11",
+    q:"How does Leibniz differ from the occasionalists (e.g. Geulincx)?",
+    options:[
+      "Leibniz rejects parallelism altogether",
+      "Occasionalists need God to act on every occasion of interaction; Leibniz finds this implies a \"very hard-working God\" and prefers pre-established harmony",
+      "Leibniz believes in interaction; occasionalists do not",
+      "Occasionalists deny God's existence"
+    ],
+    correct:1,
+    explanation:"Both are parallelists, but for occasionalists God acts <em>each time</em>. Leibniz objected: that makes a <b>very hard-working God</b>. His pre-established harmony sets it up once, at creation."},
+
+  {id:"q12",
+    q:"\"Causal closure of the physical\" means:",
+    options:[
+      "Physical causes always have physical effects, but the door is open to non-physical causes",
+      "Energy or mass cannot enter the physical system from outside, nor leak out, depleting its total",
+      "The physical world is finite",
+      "All causation is mental"
+    ],
+    correct:1,
+    explanation:"Causal closure follows from <b>conservation of mass and energy</b>. Nothing nonphysical can inject physical energy; nothing physical can leak to a nonphysical system."},
+
+  {id:"q13",
+    q:"On Westphal's analysis, the <em>only</em> proposition Lepore &amp; Loewer's argument suggests we cannot deny is:",
+    options:[
+      "(5) Mind and body are distinct",
+      "(3b) The mental and physical causally interact",
+      "(4b) The physical is causally closed",
+      "All three are equally optional"
+    ],
+    correct:2,
+    explanation:"Given physics, denying <b>(4b) causal closure</b> is not a live option. The physicalist drops (5); the parallelist drops (3b)."},
+
+  {id:"q14",
+    q:"Westphal's overall lesson from the conservation argument is:",
+    options:[
+      "Be a substance dualist or an emergentist",
+      "Be either a parallelist or a physicalist — but NOT an interactionist",
+      "Be a property dualist",
+      "Be an idealist"
+    ],
+    correct:1,
+    explanation:"The exact line: <b>\"we should be either parallelists or physicalists, but not interactionists.\"</b>"},
+
+  {id:"q15",
+    q:"Epiphenomenalism is the view that:",
+    options:[
+      "Mental events cause physical ones, but not vice versa",
+      "Physical events cause mental events, but mental events do not cause physical events",
+      "Mind and body cause each other equally",
+      "Neither mind nor body has causal powers"
+    ],
+    correct:1,
+    explanation:"Epiphenomenalism is one-way: <b>brain → mind, never mind → brain</b>. The mind is a causally inert side-effect."},
+
+  {id:"q16",
+    q:"Westphal's reply to Huxley's steam-whistle simile is:",
+    options:[
+      "Locomotives don't actually have whistles",
+      "A whistle CAN be rigged to brake the train — nothing in physics rules out a causal loop, so why should the mind be uniquely barred?",
+      "Whistles always cause something",
+      "Consciousness is louder than a whistle"
+    ],
+    correct:1,
+    explanation:"Westphal points out the simile fails: rig the whistle's steam to a fan to a brake circuit, and the whistle has real physical effects. Why is the mind uniquely inert?"},
+
+  {id:"q17",
+    q:"According to Westphal, <em>Aδ fibers</em> and <em>C fibers</em> are associated with:",
+    options:[
+      "Vision and hearing respectively",
+      "Sharp/acute pain and dull/burning pain respectively",
+      "Voluntary and involuntary movement",
+      "Conscious and unconscious thought"
+    ],
+    correct:1,
+    explanation:"<b>Aδ fibers</b> → sharp/acute pain. <b>C fibers</b> → dull/burning pain. Westphal uses them to pose the emergentist's mystery: why <em>pain</em> at all?"},
+
+  {id:"q18",
+    q:"Property A <em>supervenes</em> on property B when:",
+    options:[
+      "A causes B",
+      "A and B are identical",
+      "There can be no change in A without a change in B",
+      "A always precedes B in time"
+    ],
+    correct:2,
+    explanation:"Supervenience: <b>no change in A without change in B</b>. Captures dependence — aesthetic on paint, mental on neural — but doesn't explain mental causation."},
+
+  {id:"q19",
+    q:"Westphal's dilemma for the emergentist is:",
+    options:[
+      "Either pain doesn't exist, or it is purely physical",
+      "Either the mind is genuinely new (and we still face the interaction problem) or it is nothing but its physical base (and not emergent at all)",
+      "Either God exists or He doesn't",
+      "Either Aδ fibers or C fibers cause pain"
+    ],
+    correct:1,
+    explanation:"The emergentist tries to have it both ways. If mind is <em>truly</em> emergent it can't interact; if it can interact, it's just physical and not new."},
+
+  {id:"q20",
+    q:"What ultimately holds emergentism back, on Westphal's view?",
+    options:[
+      "It denies that brains exist",
+      "It is really a form of physicalism that cannot deliver genuine mental causation — the mind is a creature of forces from below",
+      "It is too closely allied with religion",
+      "It accepts the four propositions in their entirety"
+    ],
+    correct:1,
+    explanation:"Even with supervenience added, emergentism leaves the mind as the <b>creature of forces from below</b> — unable to attain genuine causal power."}
+);
+
+/* ============================================================
+   RENDER LOGIC
+============================================================ */
+
+const $ = (sel, root=document) => root.querySelector(sel);
+const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+let currentLessonIdx = 0;
+let currentFlashIdx = 0;
+let activeFlashFilter = "All";
+let filteredFlashIdxList = [];
+let currentMcqIdx = 0;
+let mcqScore = 0;
+let mcqAnswered = false;
+
+/* ---- panel switching ---- */
+function switchPanel(target){
+  $$(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.panel === target));
+  $$(".panel").forEach(p => p.classList.toggle("active", p.id === target));
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+$$(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", () => switchPanel(btn.dataset.panel));
+});
+
+/* ---- OVERVIEW: lesson grid ---- */
+function renderOverview(){
+  const grid = $("#overviewGrid");
+  if(!grid) return;
+  grid.innerHTML = "";
+  LESSONS.forEach((les, i) => {
+    const card = document.createElement("div");
+    card.className = "lesson-card";
+    card.innerHTML = `
+      <div class="lc-num">Lesson ${les.num}</div>
+      <div class="lc-title">${les.title}</div>
+      <div class="lc-tag">${les.eyebrow}</div>
+      <div class="lc-arrow">→</div>
+    `;
+    card.addEventListener("click", () => {
+      currentLessonIdx = i;
+      switchPanel("lessons");
+      renderLesson();
+      renderTOC();
+    });
+    grid.appendChild(card);
+  });
+}
+
+/* ---- LESSONS: TOC + content ---- */
+function stripTags(s){ return s.replace(/<[^>]+>/g, ""); }
+
+function renderTOC(){
+  const toc = $("#lessonTOC");
+  if(!toc) return;
+  toc.innerHTML = "";
+  LESSONS.forEach((les, i) => {
+    const item = document.createElement("div");
+    item.className = "toc-item" + (i === currentLessonIdx ? " active" : "");
+    item.innerHTML = `<span class="toc-num">${les.num}.</span><span>${stripTags(les.title)}</span>`;
+    item.addEventListener("click", () => {
+      currentLessonIdx = i;
+      renderLesson();
+      renderTOC();
+      window.scrollTo({top:0, behavior:"smooth"});
+    });
+    toc.appendChild(item);
+  });
+}
+
+function renderLesson(){
+  const content = $("#lessonContent");
+  if(!content) return;
+  const les = LESSONS[currentLessonIdx];
+  if(!les) return;
+
+  const bulletsHtml = les.bullets.map(b => `<li>${b}</li>`).join("");
+
+  const prevTitle = currentLessonIdx > 0 ? stripTags(LESSONS[currentLessonIdx-1].title) : "";
+  const nextTitle = currentLessonIdx < LESSONS.length-1 ? stripTags(LESSONS[currentLessonIdx+1].title) : "";
+
+  content.innerHTML = `
+    <div class="lesson-eyebrow">Lesson ${les.num} · ${les.eyebrow}</div>
+    <h1 class="lesson-title">${les.title}</h1>
+
+    <div class="diagram-frame">
+      ${les.svg}
+    </div>
+    <div class="diagram-caption">${les.caption}</div>
+
+    <div class="lesson-body">
+      <div class="bullet-block">
+        <div class="bullet-eyebrow">Five things to remember</div>
+        <ul class="bullets">${bulletsHtml}</ul>
+      </div>
+      <div class="memory-hook">
+        <div class="mh-label">${les.hook.label}</div>
+        <div class="mh-text">${les.hook.html}</div>
+      </div>
+    </div>
+
+    <div class="lesson-nav">
+      <button class="lnav-btn" id="lnavPrev" ${currentLessonIdx===0?"disabled":""}>
+        <span class="lnav-label">← Previous</span>
+        <span class="lnav-title">${prevTitle || "—"}</span>
+      </button>
+      <button class="lnav-btn next" id="lnavNext" ${currentLessonIdx===LESSONS.length-1?"disabled":""}>
+        <span class="lnav-label">Next →</span>
+        <span class="lnav-title">${nextTitle || "—"}</span>
+      </button>
+    </div>
+  `;
+
+  $("#lnavPrev")?.addEventListener("click", () => {
+    if(currentLessonIdx > 0){ currentLessonIdx--; renderLesson(); renderTOC(); window.scrollTo({top:0, behavior:"smooth"}); }
+  });
+  $("#lnavNext")?.addEventListener("click", () => {
+    if(currentLessonIdx < LESSONS.length-1){ currentLessonIdx++; renderLesson(); renderTOC(); window.scrollTo({top:0, behavior:"smooth"}); }
+  });
+}
+
+/* ---- FLASHCARDS ---- */
+function getFlashTopics(){
+  const set = new Set(FLASHCARDS.map(f => f.topic));
+  return ["All", ...set];
+}
+
+function applyFlashFilter(){
+  if(activeFlashFilter === "All"){
+    filteredFlashIdxList = FLASHCARDS.map((_,i) => i);
+  } else {
+    filteredFlashIdxList = FLASHCARDS.map((f,i) => f.topic === activeFlashFilter ? i : -1).filter(i => i !== -1);
+  }
+  if(currentFlashIdx >= filteredFlashIdxList.length) currentFlashIdx = 0;
+}
+
+function renderFlashToolbar(){
+  const container = $("#flashToolbar");
+  if(!container) return;
+  container.innerHTML = "";
+  getFlashTopics().forEach(topic => {
+    const btn = document.createElement("button");
+    btn.className = "flash-filter" + (topic === activeFlashFilter ? " active" : "");
+    btn.textContent = topic;
+    btn.addEventListener("click", () => {
+      activeFlashFilter = topic;
+      currentFlashIdx = 0;
+      applyFlashFilter();
+      renderFlashToolbar();
+      renderFlashcard();
+    });
+    container.appendChild(btn);
+  });
+  // shuffle button
+  const shuffle = document.createElement("button");
+  shuffle.className = "flash-action";
+  shuffle.textContent = "Shuffle";
+  shuffle.addEventListener("click", () => {
+    for(let i = FLASHCARDS.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i+1));
+      [FLASHCARDS[i], FLASHCARDS[j]] = [FLASHCARDS[j], FLASHCARDS[i]];
+    }
+    currentFlashIdx = 0;
+    applyFlashFilter();
+    renderFlashcard();
+  });
+  container.appendChild(shuffle);
+}
+
+function renderFlashcard(){
+  applyFlashFilter();
+  const card = $("#flashCard");
+  const counter = $("#flashCounter");
+  if(!card) return;
+
+  card.classList.remove("flipped");
+
+  if(filteredFlashIdxList.length === 0){
+    $("#flashTagFront").textContent = "—";
+    $("#flashQ").innerHTML = "No cards in this topic.";
+    $("#flashTagBack").textContent = "—";
+    $("#flashA").innerHTML = "";
+    counter.textContent = "0 / 0";
+    return;
+  }
+
+  const fc = FLASHCARDS[filteredFlashIdxList[currentFlashIdx]];
+  $("#flashTagFront").textContent = fc.topic;
+  $("#flashQ").innerHTML = fc.q;
+  $("#flashTagBack").textContent = "Answer · " + fc.topic;
+  $("#flashA").innerHTML = fc.a;
+  counter.textContent = `${currentFlashIdx+1} / ${filteredFlashIdxList.length}`;
+}
+
+$("#flashCard")?.addEventListener("click", () => {
+  $("#flashCard").classList.toggle("flipped");
+});
+$("#flashPrev")?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if(filteredFlashIdxList.length === 0) return;
+  currentFlashIdx = (currentFlashIdx - 1 + filteredFlashIdxList.length) % filteredFlashIdxList.length;
+  renderFlashcard();
+});
+$("#flashNext")?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if(filteredFlashIdxList.length === 0) return;
+  currentFlashIdx = (currentFlashIdx + 1) % filteredFlashIdxList.length;
+  renderFlashcard();
+});
+$("#flashFlip")?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  $("#flashCard")?.classList.toggle("flipped");
+});
+
+/* ---- MCQ ---- */
+function renderMcq(){
+  const stage = $("#quizArea");
+  if(!stage) return;
+
+  if(currentMcqIdx >= QUESTIONS.length){
+    const pct = Math.round(100 * mcqScore / QUESTIONS.length);
+    let msg;
+    if(pct >= 85) msg = "Excellent — you have a confident grip on the chapter's architecture.";
+    else if(pct >= 70) msg = "Solid grounding. Revisit the lessons where uncertainty crept in.";
+    else if(pct >= 50) msg = "Halfway there. A second pass through the lessons should consolidate it.";
+    else msg = "Worth another pass through the lessons before re-attempting the examination.";
+
+    stage.innerHTML = `
+      <div class="quiz-complete">
+        <div class="qc-eyebrow">Examination complete</div>
+        <div class="qc-score"><em>${mcqScore}</em> / ${QUESTIONS.length}</div>
+        <div class="qc-pct">${pct}%</div>
+        <div class="qc-msg">${msg}</div>
+        <button class="q-btn" id="mcqRetake">Retake examination</button>
+      </div>
+    `;
+    $("#mcqRetake")?.addEventListener("click", () => {
+      currentMcqIdx = 0;
+      mcqScore = 0;
+      mcqAnswered = false;
+      // shuffle questions for retake
+      for(let i = QUESTIONS.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i+1));
+        [QUESTIONS[i], QUESTIONS[j]] = [QUESTIONS[j], QUESTIONS[i]];
+      }
+      renderMcq();
+    });
+    return;
+  }
+
+  const q = QUESTIONS[currentMcqIdx];
+  mcqAnswered = false;
+
+  stage.innerHTML = `
+    <div class="quiz-meta">
+      <div class="quiz-progress">Question ${currentMcqIdx+1} <em>of</em> ${QUESTIONS.length}</div>
+      <div class="quiz-score">Score · <b>${mcqScore}</b></div>
+    </div>
+    <div class="q-card">
+      <div class="q-num">${String(currentMcqIdx+1).padStart(2,"0")}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-options">
+        ${q.options.map((opt, i) => `
+          <button class="q-opt" data-i="${i}">
+            <span class="q-opt-letter">${String.fromCharCode(65+i)}</span>
+            <span class="q-opt-text">${opt}</span>
+          </button>
+        `).join("")}
+      </div>
+      <div class="q-feedback" id="mcqFeedback"></div>
+      <div class="q-actions">
+        <button class="q-btn ghost" id="mcqRestart">Restart</button>
+        <button class="q-btn" id="mcqNext" disabled>Next →</button>
+      </div>
+    </div>
+  `;
+
+  $$(".q-opt", stage).forEach(btn => {
+    btn.addEventListener("click", () => {
+      if(mcqAnswered) return;
+      mcqAnswered = true;
+      const chosen = parseInt(btn.dataset.i, 10);
+      const correctIdx = q.correct;
+      $$(".q-opt", stage).forEach(b => {
+        const i = parseInt(b.dataset.i, 10);
+        b.disabled = true;
+        if(i === correctIdx) b.classList.add("correct");
+        if(i === chosen && i !== correctIdx) b.classList.add("incorrect");
+      });
+      const fb = $("#mcqFeedback", stage);
+      const wasRight = chosen === correctIdx;
+      if(wasRight) mcqScore++;
+      fb.innerHTML = `
+        <span class="q-fb-label">${wasRight ? '✓ Correct' : '✗ Incorrect'}</span>
+        ${q.explanation}
+      `;
+      fb.classList.add("show");
+      $("#mcqNext", stage).disabled = false;
+      // update score display
+      $(".quiz-score b", stage).textContent = mcqScore;
+    });
+  });
+
+  $("#mcqNext", stage)?.addEventListener("click", () => {
+    currentMcqIdx++;
+    renderMcq();
+  });
+  $("#mcqRestart", stage)?.addEventListener("click", () => {
+    if(confirm("Restart the examination from question 1?")){
+      currentMcqIdx = 0;
+      mcqScore = 0;
+      mcqAnswered = false;
+      renderMcq();
+    }
+  });
+}
+
+/* ---- bootstrap ---- */
+renderOverview();
+renderTOC();
+renderLesson();
+renderFlashToolbar();
+renderFlashcard();
+renderMcq();
+
+</script>
+</body>
+</html>
